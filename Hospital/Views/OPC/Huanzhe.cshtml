@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Huanzhe";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IEnumerable<Hospital.Models.Guahao>
+<style>
+
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">门诊管理</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">门诊管理</a></li>
+                                <li class="breadcrumb-item active">患者库</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">患者名单</h4>
+                            <form action="/OPC/Huanzhe/" method="post">
+                                <input type="text" name="Gname" placeholder="请输入患者姓名" />&nbsp;<input type="submit" value="查询" class="btn btn-primary" />
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>患者编号</th>
+                                            <th>患者姓名</th>
+                                            <th>患者手机号</th>
+                                            <th>患者身份证</th>
+                                            <th>性别</th>
+                                            <th>状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                     {
+                                        <tr>
+                                            <td>@item.Gid</td>
+                                            <td>@item.Gname</td>
+                                            <td>@item.GPhone</td>
+                                            <td>@item.Gshenfenzheng</td>
+                                            <td>@item.GSex</td>
+                                            <td>@(item.Gstate=="0"?"未就诊":"已就诊")</td>
+                                            <td>
+                                                <input type="button" data-toggle="modal" 
+                                                       onclick="Cha('@item.Gid', '@item.Gname', '@item.Paiban.Doctor.Bumen.Bname', '@item.Paiban.Doctor.Yname', '@item.Gtime',)" data-target="#Xiangqin" class="btn btn-danger" value="查看" />
+                                            </td>
+                                        </tr>
+                                     }
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- 患者详情弹窗开始 -->
+<div class="modal fade" id="Xiangqin">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">患者详细信息</h2>
+            </div>
+            <div class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+
+                        <label for="inputPassword3" class="col-sm-3 control-label">患者姓名：</label>
+                        <div class="col-sm-9">
+                            <label id="Gname"></label>
+                        </div>
+
+                        <label for="inputPassword3" class="col-sm-3 control-label">科室：</label>
+                        <div class="col-sm-9">
+                            <label id="ke"></label>
+                        </div>
+
+
+                        <label for="inputPassword3" class="col-sm-3 control-label">就诊医生：</label>
+                        <div class="col-sm-9">
+                            <label id="Yname"></label>
+                        </div>
+
+                        <label for="inputPassword3" class="col-sm-3 control-label">挂号时间：</label>
+                        <div class="col-sm-9">
+                            <label id="time"></label>
+                        </div>
+                    </div>
+                </div>
+                <!-- 底部按钮-->
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 患者详情弹窗结束 -->
+<script>
+    function Cha(Gid,name,ke,Yname,Gtime) {
+        document.getElementById('Gname').innerHTML = name;
+        document.getElementById('ke').innerHTML = ke;
+        document.getElementById('Yname').innerHTML = Yname;
+        document.getElementById('time').innerHTML = Gtime;
+        
+    }
+</script>

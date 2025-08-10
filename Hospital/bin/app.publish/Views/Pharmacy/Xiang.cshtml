@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewBag.Title = "Xiang";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IEnumerable<Hospital.Models.Xiangmu>
+<style>
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">数据中心</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">数据中心</a></li>
+                                <li class="breadcrumb-item active">项目划分</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xl-12">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">项目总览</h4>
+                            <form action="/Pharmacy/Cha/" method="post">
+                                <span>选择：</span>
+                                &nbsp;<input type="button" value="添加新项目" class="btn btn-primary" onclick="" data-toggle="modal" data-target="#AddX" />
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>项目编号</th>
+                                            <th>项目名称</th>
+                                            <th>成本价格</th>
+                                            <th>售出价格</th>
+                                            <th>是否需要检查</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Xid</td>
+                                            <td>@item.Xname</td>
+                                            <td>@item.Xchenben</td>
+                                            <td>@item.Xmoney</td>
+                                            <td>@item.Xstate</td>
+                                            <td>
+                                                <input type="button" onclick="Fu('@item.Xid','@item.Xname','@item.Xchenben','@item.Xmoney','@item.Xstate')" data-toggle="modal" data-target="#Xiu" class="btn btn-danger" value="修改" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 我的添加弹窗开始 -->
+<div class="modal" id="AddX" >
+    <!-- 对话框 -->
+    <div class="modal-dialog" >
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">添加信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/Pharmacy/Xiang/">
+                <!-- 内容部分 -->
+                <div class="modal-body"  >
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">项目名称：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Xname" class="form-control" id="Xname" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">项目成本：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Xchenben" class="form-control" id="Xchenben" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">项目售价：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Xmoney" class="form-control" id="Xmoney">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">是否需要检查：</label>
+                        <div class="col-sm-9">
+                            <select id="Xstate" name="Xstate" class="form-control">
+                                <option value="">--请选择--</option>
+                                <option value="需检查">需检查</option>
+                                <option value="非检查">非检查</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- 我的添加弹窗结束 -->
+<!-- 我的修改弹窗开始 -->
+<div class="modal" id="Xiu">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">修改信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data" >
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">项目名称：</label>
+                        <div class="col-sm-9">
+                            <input type="hidden" name="Xid1" class="form-control" id="Xid1" />
+                            <input type="text" name="Xname1" class="form-control" id="Xname1" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">项目成本：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Xchenben1" class="form-control" id="Xchenben1" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">项目售价：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Xmoney1" class="form-control" id="Xmoney1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">是否需要检查：</label>
+                        <div class="col-sm-9">
+                            <select id="Xstate1" class="form-control">
+                                <option value="">--请选择--</option>
+                                <option value="需检查">需检查</option>
+                                <option value="非检查">非检查</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" onclick="Xiu()" class="btn btn-info">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- 我的修改弹窗结束 -->
+<script>
+    //给修改弹窗赋值
+    function Fu(Xid, Xname, Xchenben, Xmoney, Xstate) {
+        $("#Xid1").val(Xid);
+        $("#Xname1").val(Xname);
+        $("#Xchenben1").val(Xchenben);
+        $("#Xmoney1").val(Xmoney);
+        $("#Xstate1").val(Xstate);
+    };
+    //修改的方法
+    function Xiu() {
+        alert(1)
+        $.ajax({
+            url: "/Pharmacy/XiangXiu",
+            data: {
+                Xid: $("#Xid1").val(),
+                Xname: $("#Xname1").val(),
+                Xchenben: $("#Xchenben1").val(),
+                Xmoney: $("#Xmoney1").val(),
+                Xstate: $("#Xstate1").val()
+            },
+            success: function (msg)  //服务器成功响应处理函数
+            {
+                if (msg == "yes") {
+                    alert("修改成功！")
+                    location.href = "/Pharmacy/Xiang";
+                }
+            },
+        })
+    }
+</script>

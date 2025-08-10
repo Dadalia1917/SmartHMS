@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewBag.Title = "Paiban";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IEnumerable<Hospital.Models.Doctor>
+<style>
+    .doctor_img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .img_d {
+        width: 150px;
+        height: 150px;
+        margin-top: 20px;
+        border-radius: 5% 5%;
+    }
+
+    dl {
+        float: left;
+        width: 240px;
+        height: 370px;
+        border: 1px solid gray;
+        margin-left: 20px;
+        text-align: center;
+        vertical-align: middle;
+        border-radius: 10% 10% 10% 10%;
+    }
+
+    .price {
+        margin-left: 10px;
+        font-size: 15px;
+    }
+
+    .bianhao {
+        font-size: 15px;
+        font-family: "微软雅黑";
+    }
+
+    .name {
+        font-size: 13px;
+        margin-left: 10px;
+        font-family: "微软雅黑";
+    }
+
+    .btn {
+        margin-left: 10px;
+    }
+</style>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- 头部导航开始 -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">出诊管理</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">出诊管理</a></li>
+                                <li class="breadcrumb-item active">医生出诊排班</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- 头部导航结束 -->
+            <!--出诊发布开始-->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">发布出诊信息</h4>
+                            <form action="/DC/Doctor/" method="post">
+                                <input type="text" name="Ysname" placeholder="请输入医生姓名" />&nbsp;<input type="submit" value="查询" class="btn btn-primary" />
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>医生编号</th>
+                                            <th>医生姓名</th>
+                                            <th>照片</th>
+                                            <th>部门</th>
+                                            <th>在院状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.YsID</td>
+                                            <td>@item.Yname</td>
+                                            <td><img class="doctor_img" src="~/images/Doctor/@item.Yphoto" />
+                                            <td>@item.Bumen.Bname</td>
+                                            <td>@item.Ystate</td>
+                                            <td>
+                                                <input type="button" data-toggle="modal" data-target="#Addchu" class="btn btn-danger" onclick="Df(@item.YsID)" value="安排出诊" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--出诊发布结束-->
+            <!--出诊信息开始-->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">已发布出诊信息</h4>
+                            @foreach (var item in ViewBag.chu)
+                            {
+                        <dl>
+                            <dt><img class="img_d" src="~/Images/Doctor/@item.Doctor.Yphoto" /></dt>
+                            <dt class="bianhao">挂号编号： @item.Pid</dt>
+                            <dd class="name"> 医生姓名： @item.Doctor.Yname</dd>
+                            <dd class="name">开始时间： @item.Ptimek</dd>
+                            <dd class="name">结束时间： @item.Ptimej</dd>
+                            <dd class="name">挂号价格： @item.Pmoney</dd>
+                            <dd class="btn">
+                                <input type="button" data-toggle="modal" data-target="#Xiuchu" class="btn btn-danger" value="修改" onclick="Fu(' @item.Pid', '@item.Ptimek', '@item.Ptimej', '@item.Pmoney','@item.YsID')" />
+                                <input type="button" class="btn btn-danger" value="删除" onclick="Shan( @item.Pid) " />
+                            </dd>
+                        </dl>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--出诊信息结束-->
+        </div>
+    </div>
+</div>
+
+<!-- 我的安排出诊弹窗开始 -->
+<div class="modal" id="Addchu">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">发布出诊信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/Chu/Paiban/">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">出诊开始时间：</label>
+                        <div class="col-sm-9">
+                            <input type="time" name="Ptimek" class="form-control" id="Ptimek" />
+                            <input type="hidden" name="YsID" class="form-control" id="YsID"/>
+                            <input type="hidden" name="Pstate" class="form-control" id="Pstate" value="1"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">出诊结束时间：</label>
+                        <div class="col-sm-9">
+                            <input type="time" name="Ptimej" class="form-control" value="" id="Ptimej"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">出诊价格：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Pmoney" class="form-control" value="" id="Pmoney">
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 我的安排出诊弹窗结束 -->
+<!-- 我的修改弹窗开始 -->
+<div class="modal" id="Xiuchu">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">修改出诊信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">出诊开始时间：</label>
+                        <div class="col-sm-9">
+                            <input type="time" class="form-control" id="Ptimek1">
+                            <input type="hidden" class="form-control" id="Pid1">
+                            <input type="hidden" class="form-control" id="YsID1">
+                            <input type="hidden" name="Pstate1" class="form-control" id="Pstate1" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">出诊结束时间：</label>
+                        <div class="col-sm-9">
+                            <input type="time"  class="form-control" value="" id="Ptimej1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">出诊价格：</label>
+                        <div class="col-sm-9">
+                            <input type="text"  class="form-control" value="" id="Pmoney1">
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="Xiu()">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 我的修改弹窗结束 -->
+<script>
+    //安排出诊获取原医生id
+    function Df(id) {
+        $("#YsID").val(id);
+    };
+    //赋值给修改弹窗
+    function Fu(Pid, Ptimek, Ptimej, Pmoney,YsID) {
+        $("#Pid1").val(Pid);
+        $("#Ptimej1").val(Ptimej);
+        $("#Ptimek1").val(Ptimek);
+        $("#Pmoney1").val(Pmoney);
+        $("#YsID1").val(YsID);
+    };
+    function Xiu() {
+        $.ajax({
+            url: "/Chu/Xiu",
+            data: {
+                Pid: $("#Pid1").val(),
+                Ptimej: $("#Ptimej1").val(),
+                Ptimek: $("#Ptimek1").val(),
+                Pmoney: $("#Pmoney1").val(),
+                YsID: $("#YsID1").val(),
+                Pstate: $("#Pstate1").val()
+            },
+            success: function (msg) {
+                if (msg == "yes") {
+                    alert("修改成功！")
+                    location.href = "/Chu/Paiban";
+                }
+            }
+        })
+    };
+    //删除（弃用将Pstate改成1）
+    function Shan(id) {
+        if (confirm("确定删除吗？")) {
+            $.ajax({
+                url: "/Chu/Shan",
+                data: {
+                    Pid: id,
+                    Pstate: 0
+                },
+                success: function (msg) {
+                    if (msg == "yes") {
+                        alert("删除成功！")
+                        location.href = "/Chu/Paiban";
+                    }
+                }
+            })
+        }
+        
+    }
+</script>

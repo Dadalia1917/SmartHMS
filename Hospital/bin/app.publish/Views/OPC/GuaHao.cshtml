@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "GuaHao";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IEnumerable<Hospital.Models.Paiban>
+<style>
+    .doctor_img {
+        width: 60px;
+        height: 60px;
+       
+    }
+
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- 头部导航标题开始 -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">挂号预约</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">门诊管理</a></li>
+                                <li class="breadcrumb-item active">挂号预约</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- 头部导航标题结束 -->
+            <!-- 挂号预约表开始 -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <form >
+                                <table class="table table-bordered text-center table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>挂号编号</th>
+                                            <th>照片</th>
+                                            <th>医生</th>
+                                            <th>科室</th>
+                                            <th>开始时间</th>
+                                            <th>结束时间</th>
+                                            <th>价格</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Pid</td>
+                                            <td><img class="doctor_img" src="~/images/Doctor/@item.Doctor.Yphoto" /></td>
+                                            <td>@item.Doctor.Yname</td>
+                                            <td>@item.Doctor.Bumen.Bname</td>
+                                            <td>@item.Ptimek</td>
+                                            <td>@item.Ptimej</td>
+                                            <td>¥@item.Pmoney</td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-secondary waves-effect waves-light" onclick="Df(@item.Pid)" data-toggle="modal" data-target="#AddHZ">确认挂号</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- 挂号预约表结束 -->
+                <!-- 我的挂号弹窗开始 -->
+                <div class="modal" id="AddHZ">
+                    <!-- 对话框 -->
+                    <div class="modal-dialog">
+                        <!-- 头部样式 -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="text-center">添加挂号患者信息</h2>
+                            </div>
+                            <form class="form-horizontal" enctype="multipart/form-data">
+                                <!-- 内容部分 -->
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">患者姓名：</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="Gname" >
+                                            <input type="hidden" id="Pid" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">手机号：</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" value="" id="GPhone" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">身份证号：</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="Gshenfenzheng">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">性别：</label>
+                                        <div class="col-sm-9">
+                                            <select id="GSex" class="form-control">
+
+                                                <option  value="男">男</option>
+                                                <option value="女">女</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 底部按钮-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info" onclick="Add()">确认</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- 我的挂号弹窗结束 -->
+
+        </div> <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+   
+
+
+</div>
+<script>
+    //把编号传到挂号信息表中
+    function Df(id) {
+        $("#Pid").val(id);
+    };
+    function Add() {
+        $.ajax({
+            url: "/OPC/Guahao",
+            type: "Post",
+            data: {
+                "Gname": $("#Gname").val(),
+                "GPhone": $("#GPhone").val(),
+                "Gshenfenzheng": $("#Gshenfenzheng").val(),
+                "GSex": $("#GSex").val(),
+                "Gstate":0,
+                "Pid": $("#Pid").val()
+            },
+            success: function (msg) {
+                if (msg == "yes") {
+                    confirm("挂号成功！，请及时就诊！")
+                    location.href = "/OPC/Guahao";
+                } else {
+                    confirm("挂号失败！请重试！")
+                    location.href = "/OPC/Guahao";
+                }
+            }
+        })
+    }
+</script>

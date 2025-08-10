@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HospitalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bumen">
+    <Key>
+      <PropertyRef Name="Bid" />
+    </Key>
+    <Property Name="Bid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Bname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bmiaoshu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK_Doctor_Bumen" FromRole="Bumen" ToRole="Doctor" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="YsID" />
+    </Key>
+    <Property Name="YsID" Type="Int32" Nullable="false" />
+    <Property Name="Yname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Yphone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Yzhuzhi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Yjianjie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Yzhicheng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ysex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Yold" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Yphoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bid" Type="Int32" />
+    <Property Name="Ystate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bumen" Relationship="Self.FK_Doctor_Bumen" FromRole="Doctor" ToRole="Bumen" />
+    <NavigationProperty Name="Login" Relationship="Self.FK_Login_Doctor" FromRole="Doctor" ToRole="Login" />
+    <NavigationProperty Name="Paiban" Relationship="Self.FK_Paiban_Doctor" FromRole="Doctor" ToRole="Paiban" />
+  </EntityType>
+  <EntityType Name="Guahao">
+    <Key>
+      <PropertyRef Name="Gid" />
+    </Key>
+    <Property Name="Gid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Gname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GPhone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gshenfenzheng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GSex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gbingli" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="YsID" Type="Int32" />
+    <Property Name="Gstate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Pid" Type="Int32" Nullable="false" />
+    <Property Name="Gtime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Paiban" Relationship="Self.FK_Guahao_Paiban" FromRole="Guahao" ToRole="Paiban" />
+    <NavigationProperty Name="Morder" Relationship="Self.FK_Morder_Guahao" FromRole="Guahao" ToRole="Morder" />
+    <NavigationProperty Name="Zhuyuan" Relationship="Self.FK_Zhuyuan_Guahao" FromRole="Guahao" ToRole="Zhuyuan" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Zhiwu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="YsID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK_Login_Doctor" FromRole="Login" ToRole="Doctor" />
+  </EntityType>
+  <EntityType Name="Medicine">
+    <Key>
+      <PropertyRef Name="medicineID" />
+    </Key>
+    <Property Name="medicineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Mname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mshu" Type="Int32" Nullable="false" />
+    <Property Name="Mdanwei" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mdizhi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mliaoxiao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mmoneyj" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Mmoneyc" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Morder" Relationship="Self.FK_Morder_Medicine" FromRole="Medicine" ToRole="Morder" />
+  </EntityType>
+  <EntityType Name="Morder">
+    <Key>
+      <PropertyRef Name="OrderIDm" />
+    </Key>
+    <Property Name="OrderIDm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="medicineID" Type="Int32" Nullable="false" />
+    <Property Name="Gid" Type="Int32" Nullable="false" />
+    <Property Name="Mshu" Type="Int32" Nullable="false" />
+    <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="miaoshu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="zhifu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="mhz" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Guahao" Relationship="Self.FK_Morder_Guahao" FromRole="Morder" ToRole="Guahao" />
+    <NavigationProperty Name="Medicine" Relationship="Self.FK_Morder_Medicine" FromRole="Morder" ToRole="Medicine" />
+  </EntityType>
+  <EntityType Name="Paiban">
+    <Key>
+      <PropertyRef Name="Pid" />
+    </Key>
+    <Property Name="Pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ptimek" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Ptimej" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="YsID" Type="Int32" Nullable="false" />
+    <Property Name="Pmoney" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK_Paiban_Doctor" FromRole="Paiban" ToRole="Doctor" />
+    <NavigationProperty Name="Guahao" Relationship="Self.FK_Guahao_Paiban" FromRole="Paiban" ToRole="Guahao" />
+  </EntityType>
+  <EntityType Name="Wx">
+    <Key>
+      <PropertyRef Name="PatientID" />
+    </Key>
+    <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Wxphone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Zhuyuan">
+    <Key>
+      <PropertyRef Name="Zhuid" />
+    </Key>
+    <Property Name="Zhuid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Gid" Type="Int32" Nullable="false" />
+    <Property Name="Ke" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Chuang" Type="Int32" Nullable="false" />
+    <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Guahao" Relationship="Self.FK_Zhuyuan_Guahao" FromRole="Zhuyuan" ToRole="Guahao" />
+  </EntityType>
+  <Association Name="FK_Doctor_Bumen">
+    <End Role="Bumen" Type="Self.Bumen" Multiplicity="0..1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bumen">
+        <PropertyRef Name="Bid" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="Bid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Login_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="Login" Type="Self.Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="YsID" />
+      </Principal>
+      <Dependent Role="Login">
+        <PropertyRef Name="YsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Paiban_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="Paiban" Type="Self.Paiban" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="YsID" />
+      </Principal>
+      <Dependent Role="Paiban">
+        <PropertyRef Name="YsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Guahao_Paiban">
+    <End Role="Paiban" Type="Self.Paiban" Multiplicity="1" />
+    <End Role="Guahao" Type="Self.Guahao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paiban">
+        <PropertyRef Name="Pid" />
+      </Principal>
+      <Dependent Role="Guahao">
+        <PropertyRef Name="Pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Morder_Guahao">
+    <End Role="Guahao" Type="Self.Guahao" Multiplicity="1" />
+    <End Role="Morder" Type="Self.Morder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guahao">
+        <PropertyRef Name="Gid" />
+      </Principal>
+      <Dependent Role="Morder">
+        <PropertyRef Name="Gid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zhuyuan_Guahao">
+    <End Role="Guahao" Type="Self.Guahao" Multiplicity="1" />
+    <End Role="Zhuyuan" Type="Self.Zhuyuan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guahao">
+        <PropertyRef Name="Gid" />
+      </Principal>
+      <Dependent Role="Zhuyuan">
+        <PropertyRef Name="Gid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Morder_Medicine">
+    <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
+    <End Role="Morder" Type="Self.Morder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Medicine">
+        <PropertyRef Name="medicineID" />
+      </Principal>
+      <Dependent Role="Morder">
+        <PropertyRef Name="medicineID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HospitalDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bumen" EntityType="Self.Bumen" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" />
+    <EntitySet Name="Guahao" EntityType="Self.Guahao" />
+    <EntitySet Name="Login" EntityType="Self.Login" />
+    <EntitySet Name="Medicine" EntityType="Self.Medicine" />
+    <EntitySet Name="Morder" EntityType="Self.Morder" />
+    <EntitySet Name="Paiban" EntityType="Self.Paiban" />
+    <EntitySet Name="Wx" EntityType="Self.Wx" />
+    <EntitySet Name="Zhuyuan" EntityType="Self.Zhuyuan" />
+    <AssociationSet Name="FK_Doctor_Bumen" Association="Self.FK_Doctor_Bumen">
+      <End Role="Bumen" EntitySet="Bumen" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Login_Doctor" Association="Self.FK_Login_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Login" EntitySet="Login" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Paiban_Doctor" Association="Self.FK_Paiban_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Paiban" EntitySet="Paiban" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Guahao_Paiban" Association="Self.FK_Guahao_Paiban">
+      <End Role="Paiban" EntitySet="Paiban" />
+      <End Role="Guahao" EntitySet="Guahao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Morder_Guahao" Association="Self.FK_Morder_Guahao">
+      <End Role="Guahao" EntitySet="Guahao" />
+      <End Role="Morder" EntitySet="Morder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zhuyuan_Guahao" Association="Self.FK_Zhuyuan_Guahao">
+      <End Role="Guahao" EntitySet="Guahao" />
+      <End Role="Zhuyuan" EntitySet="Zhuyuan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Morder_Medicine" Association="Self.FK_Morder_Medicine">
+      <End Role="Medicine" EntitySet="Medicine" />
+      <End Role="Morder" EntitySet="Morder" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

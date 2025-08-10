@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/css/normalize.min.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <script src="~/Scripts/Denlu.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <title>Login</title>
+</head>
+<body>
+    <div id="formContainer" class="dwo">
+        <div class="formLeft">
+            <img src="~/images/ys.png">
+        </div>
+        <div class="formRight">
+            <!-- 登录表单 -->
+            <form id="login" method="post" action="/Home/Login/">
+                <header>
+                    <h2>医院服务系统欢迎您！</h2>
+                    <p>请先登录</p>
+                </header>
+                <section>
+                    <label>
+                        <p>账号</p>
+                        <input type="text" id="Account" name="Account" oninput="setCustomValidity('')" required oninvalid="setCustomValidity('账号不能为空！')" placeholder="请输入账号 " />
+                        <div class="border"></div>
+                    </label>
+                    <label>
+                        <p>密码</p>
+                        <input type="password" id="Password" oninput="setCustomValidity('')" required oninvalid="setCustomValidity('密码不能为空！')" name="Password" placeholder="请输入密码 " />
+                        <div class="border"></div>
+                    </label>
+                    <button type="submit">登 录</button>
+
+                </section>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

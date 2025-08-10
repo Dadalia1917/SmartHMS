@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewBag.Title = "Bumen";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IEnumerable<Hospital.Models.Bumen>
+<style>
+
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!--  -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">数据中心</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">数据中心</a></li>
+                                <li class="breadcrumb-item active">科室中心</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <form action="/DC/Bumen/" method="post">
+                                <input type="text" name="Bname" placeholder="请输入科室名称" />&nbsp;<input type="submit" value="查询" class="btn btn-primary" />
+                                &nbsp;<input type="button" value="添加" class="btn btn-primary" data-toggle="modal" data-target="#AddKS" />
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>科室编号</th>
+                                            <th>科室名称</th>
+                                            <th>科室简介</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Bid</td>
+                                            <td>@item.Bname</td>
+                                            <td>@item.Bmiaoshu</td>
+                                            
+                                            <td>
+                                                <input type="button" class="btn btn-warning" onclick="Df('@item.Bid','@item.Bname','@item.Bmiaoshu')" data-toggle="modal" data-target="#UpdateKS" value="编辑" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 我的添加弹窗开始 -->
+<div class="modal" id="AddKS">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">添加科室信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">科室名称：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Bname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">科室简介：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="" id="Bmiaoshu">
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="Addke()">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 我的添加弹窗结束 -->
+<!-- 我的修改弹窗开始 -->
+<div class="modal" id="UpdateKS">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">修改科室信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">科室名称：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Bnames">
+                            <input type="hidden" class="form-control" id="Bids">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">科室简介：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="" id="Bmiaoshus">
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="Xiu()">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 我的修改弹窗结束 -->
+
+<script>
+    function Df(id,shu,shu1) {
+        $("#Bmiaoshus").val(shu1);
+        $("#Bids").val(id);
+        $("#Bnames").val(shu);
+    };
+    function Xiu() {
+        $.ajax({
+            url: "/DC/Xiu",
+            data: {
+                "Bid": $("#Bids").val(),
+                "Bname": $("#Bnames").val(),
+                "Bmiaoshu": $("#Bmiaoshus").val()
+            },
+            success: function (msg) {
+                if (msg == "yes") {
+                    confirm("修改成功！")
+                    location.href = "/DC/Bumen";
+                } else {
+                    confirm("修改失败！请重试！")
+                    location.href = "/DC/Bumen";
+                }
+            }
+        })
+
+
+    };
+    function Addke() {
+        $.ajax({
+            url: "/DC/Bumens",
+            type: "Post",
+            data: {
+                "Bname": $("#Bname").val(),
+                "Bmiaoshu": $("#Bmiaoshu").val()
+            },
+            success: function (msg) {
+                if (msg == "yes") {
+                    confirm("添加成功！")
+                    location.href = "/DC/Bumen";
+                } else {
+                    confirm("添加失败！请重试！")
+                    location.href = "/DC/Bumen";
+                }
+            }
+        })
+    };
+    function Removeke(id) {
+        if (confirm("确认要删除吗？")) {
+            $.ajax({
+                url: "/DC/BRemove/" + id,
+                type: "Get",
+                success: function (msg) {
+                    if (msg == "yes") {
+                        confirm("删除成功！")
+                        location.href = "/DC/Bumen";
+                    } else {
+                        confirm("删除失败！请重试！")
+                        location.href = "/DC/Bumen";
+                    }
+                }
+            })
+        }
+
+    }
+</script>
+

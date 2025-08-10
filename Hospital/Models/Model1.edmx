@@ -1,0 +1,704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HospitalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bumen">
+          <Key>
+            <PropertyRef Name="Bid" />
+          </Key>
+          <Property Name="Bid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bmiaoshu" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="YsID" />
+          </Key>
+          <Property Name="YsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yphone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yzhuzhi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yjianjie" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Yzhicheng" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ysex" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yold" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Yphoto" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Bid" Type="int" />
+          <Property Name="Ystate" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Guahao">
+          <Key>
+            <PropertyRef Name="Gid" />
+          </Key>
+          <Property Name="Gid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GPhone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Gshenfenzheng" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GSex" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gbingli" Type="nvarchar(max)" />
+          <Property Name="YsID" Type="int" />
+          <Property Name="Gstate" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pid" Type="int" Nullable="false" />
+          <Property Name="Gtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zhiwu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="YsID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="medicineID" />
+          </Key>
+          <Property Name="medicineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mshu" Type="int" Nullable="false" />
+          <Property Name="Mdanwei" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mdizhi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mliaoxiao" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mmoneyj" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Mmoneyc" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Mshengchan" Type="datetime" Nullable="false" />
+          <Property Name="Mguoqi" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Morder">
+          <Key>
+            <PropertyRef Name="OrderIDm" />
+          </Key>
+          <Property Name="OrderIDm" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="medicineID" Type="int" Nullable="false" />
+          <Property Name="Gid" Type="int" />
+          <Property Name="Mshu" Type="int" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+          <Property Name="miaoshu" Type="nvarchar(max)" />
+          <Property Name="zhifu" Type="nvarchar" MaxLength="50" />
+          <Property Name="mhz" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Paiban">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ptimek" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Ptimej" Type="time" Precision="7" Nullable="false" />
+          <Property Name="YsID" Type="int" Nullable="false" />
+          <Property Name="Pmoney" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Pstate" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Wx">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Wxphone" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Xiangmu">
+          <Key>
+            <PropertyRef Name="Xid" />
+          </Key>
+          <Property Name="Xid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Xname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Xmoney" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Xchenben" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Xstate" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zhuyuan">
+          <Key>
+            <PropertyRef Name="Zhuid" />
+          </Key>
+          <Property Name="Zhuid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gid" Type="int" Nullable="false" />
+          <Property Name="Ke" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Chuang" Type="int" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="money" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="riqi" Type="date" />
+          <Property Name="riqic" Type="date" />
+          <Property Name="moneyz" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_Doctor_Bumen">
+          <End Role="Bumen" Type="Self.Bumen" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bumen">
+              <PropertyRef Name="Bid" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="Bid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Guahao_Paiban">
+          <End Role="Paiban" Type="Self.Paiban" Multiplicity="1" />
+          <End Role="Guahao" Type="Self.Guahao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paiban">
+              <PropertyRef Name="Pid" />
+            </Principal>
+            <Dependent Role="Guahao">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Login" Type="Self.Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="YsID" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="YsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Morder_Guahao">
+          <End Role="Guahao" Type="Self.Guahao" Multiplicity="0..1" />
+          <End Role="Morder" Type="Self.Morder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guahao">
+              <PropertyRef Name="Gid" />
+            </Principal>
+            <Dependent Role="Morder">
+              <PropertyRef Name="Gid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Morder_Medicine">
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
+          <End Role="Morder" Type="Self.Morder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="medicineID" />
+            </Principal>
+            <Dependent Role="Morder">
+              <PropertyRef Name="medicineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paiban_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Paiban" Type="Self.Paiban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="YsID" />
+            </Principal>
+            <Dependent Role="Paiban">
+              <PropertyRef Name="YsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zhuyuan_Guahao">
+          <End Role="Guahao" Type="Self.Guahao" Multiplicity="1" />
+          <End Role="Zhuyuan" Type="Self.Zhuyuan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guahao">
+              <PropertyRef Name="Gid" />
+            </Principal>
+            <Dependent Role="Zhuyuan">
+              <PropertyRef Name="Gid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitalDBModelStoreContainer">
+          <EntitySet Name="Bumen" EntityType="Self.Bumen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Guahao" EntityType="Self.Guahao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Morder" EntityType="Self.Morder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paiban" EntityType="Self.Paiban" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wx" EntityType="Self.Wx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Xiangmu" EntityType="Self.Xiangmu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zhuyuan" EntityType="Self.Zhuyuan" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Doctor_Bumen" Association="Self.FK_Doctor_Bumen">
+            <End Role="Bumen" EntitySet="Bumen" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Guahao_Paiban" Association="Self.FK_Guahao_Paiban">
+            <End Role="Paiban" EntitySet="Paiban" />
+            <End Role="Guahao" EntitySet="Guahao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login_Doctor" Association="Self.FK_Login_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Morder_Guahao" Association="Self.FK_Morder_Guahao">
+            <End Role="Guahao" EntitySet="Guahao" />
+            <End Role="Morder" EntitySet="Morder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Morder_Medicine" Association="Self.FK_Morder_Medicine">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="Morder" EntitySet="Morder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paiban_Doctor" Association="Self.FK_Paiban_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Paiban" EntitySet="Paiban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zhuyuan_Guahao" Association="Self.FK_Zhuyuan_Guahao">
+            <End Role="Guahao" EntitySet="Guahao" />
+            <End Role="Zhuyuan" EntitySet="Zhuyuan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospitalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bumen">
+          <Key>
+            <PropertyRef Name="Bid" />
+          </Key>
+          <Property Name="Bid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bmiaoshu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Doctor_Bumen" FromRole="Bumen" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="YsID" />
+          </Key>
+          <Property Name="YsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Yname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yphone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yzhuzhi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yjianjie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yzhicheng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ysex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yold" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Yphoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bid" Type="Int32" />
+          <Property Name="Ystate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bumen" Relationship="Self.FK_Doctor_Bumen" FromRole="Doctor" ToRole="Bumen" />
+          <NavigationProperty Name="Login" Relationship="Self.FK_Login_Doctor" FromRole="Doctor" ToRole="Login" />
+          <NavigationProperty Name="Paiban" Relationship="Self.FK_Paiban_Doctor" FromRole="Doctor" ToRole="Paiban" />
+        </EntityType>
+        <EntityType Name="Guahao">
+          <Key>
+            <PropertyRef Name="Gid" />
+          </Key>
+          <Property Name="Gid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GPhone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gshenfenzheng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GSex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gbingli" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="YsID" Type="Int32" />
+          <Property Name="Gstate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pid" Type="Int32" Nullable="false" />
+          <Property Name="Gtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Paiban" Relationship="Self.FK_Guahao_Paiban" FromRole="Guahao" ToRole="Paiban" />
+          <NavigationProperty Name="Morder" Relationship="Self.FK_Morder_Guahao" FromRole="Guahao" ToRole="Morder" />
+          <NavigationProperty Name="Zhuyuan" Relationship="Self.FK_Zhuyuan_Guahao" FromRole="Guahao" ToRole="Zhuyuan" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zhiwu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YsID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Login_Doctor" FromRole="Login" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="medicineID" />
+          </Key>
+          <Property Name="medicineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mshu" Type="Int32" Nullable="false" />
+          <Property Name="Mdanwei" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mdizhi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mliaoxiao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mmoneyj" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Mmoneyc" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Mshengchan" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Mguoqi" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Morder" Relationship="Self.FK_Morder_Medicine" FromRole="Medicine" ToRole="Morder" />
+        </EntityType>
+        <EntityType Name="Morder">
+          <Key>
+            <PropertyRef Name="OrderIDm" />
+          </Key>
+          <Property Name="OrderIDm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="medicineID" Type="Int32" Nullable="false" />
+          <Property Name="Gid" Type="Int32" />
+          <Property Name="Mshu" Type="Int32" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="miaoshu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="zhifu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mhz" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Guahao" Relationship="Self.FK_Morder_Guahao" FromRole="Morder" ToRole="Guahao" />
+          <NavigationProperty Name="Medicine" Relationship="Self.FK_Morder_Medicine" FromRole="Morder" ToRole="Medicine" />
+        </EntityType>
+        <EntityType Name="Paiban">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ptimek" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Ptimej" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="YsID" Type="Int32" Nullable="false" />
+          <Property Name="Pmoney" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Pstate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Paiban_Doctor" FromRole="Paiban" ToRole="Doctor" />
+          <NavigationProperty Name="Guahao" Relationship="Self.FK_Guahao_Paiban" FromRole="Paiban" ToRole="Guahao" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Wx">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Wxphone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Xiangmu">
+          <Key>
+            <PropertyRef Name="Xid" />
+          </Key>
+          <Property Name="Xid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Xname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Xmoney" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Xchenben" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="Xstate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zhuyuan">
+          <Key>
+            <PropertyRef Name="Zhuid" />
+          </Key>
+          <Property Name="Zhuid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gid" Type="Int32" Nullable="false" />
+          <Property Name="Ke" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Chuang" Type="Int32" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="money" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="riqi" Type="DateTime" Precision="0" />
+          <Property Name="riqic" Type="DateTime" Precision="0" />
+          <Property Name="moneyz" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Guahao" Relationship="Self.FK_Zhuyuan_Guahao" FromRole="Zhuyuan" ToRole="Guahao" />
+        </EntityType>
+        <Association Name="FK_Doctor_Bumen">
+          <End Role="Bumen" Type="Self.Bumen" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bumen">
+              <PropertyRef Name="Bid" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="Bid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Login" Type="Self.Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="YsID" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="YsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paiban_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Paiban" Type="Self.Paiban" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="YsID" />
+            </Principal>
+            <Dependent Role="Paiban">
+              <PropertyRef Name="YsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Guahao_Paiban">
+          <End Role="Paiban" Type="Self.Paiban" Multiplicity="1" />
+          <End Role="Guahao" Type="Self.Guahao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paiban">
+              <PropertyRef Name="Pid" />
+            </Principal>
+            <Dependent Role="Guahao">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Morder_Guahao">
+          <End Role="Guahao" Type="Self.Guahao" Multiplicity="0..1" />
+          <End Role="Morder" Type="Self.Morder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guahao">
+              <PropertyRef Name="Gid" />
+            </Principal>
+            <Dependent Role="Morder">
+              <PropertyRef Name="Gid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zhuyuan_Guahao">
+          <End Role="Guahao" Type="Self.Guahao" Multiplicity="1" />
+          <End Role="Zhuyuan" Type="Self.Zhuyuan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guahao">
+              <PropertyRef Name="Gid" />
+            </Principal>
+            <Dependent Role="Zhuyuan">
+              <PropertyRef Name="Gid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Morder_Medicine">
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="1" />
+          <End Role="Morder" Type="Self.Morder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicine">
+              <PropertyRef Name="medicineID" />
+            </Principal>
+            <Dependent Role="Morder">
+              <PropertyRef Name="medicineID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitalDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bumen" EntityType="Self.Bumen" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" />
+          <EntitySet Name="Guahao" EntityType="Self.Guahao" />
+          <EntitySet Name="Login" EntityType="Self.Login" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" />
+          <EntitySet Name="Morder" EntityType="Self.Morder" />
+          <EntitySet Name="Paiban" EntityType="Self.Paiban" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Wx" EntityType="Self.Wx" />
+          <EntitySet Name="Xiangmu" EntityType="Self.Xiangmu" />
+          <EntitySet Name="Zhuyuan" EntityType="Self.Zhuyuan" />
+          <AssociationSet Name="FK_Doctor_Bumen" Association="Self.FK_Doctor_Bumen">
+            <End Role="Bumen" EntitySet="Bumen" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login_Doctor" Association="Self.FK_Login_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paiban_Doctor" Association="Self.FK_Paiban_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Paiban" EntitySet="Paiban" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Guahao_Paiban" Association="Self.FK_Guahao_Paiban">
+            <End Role="Paiban" EntitySet="Paiban" />
+            <End Role="Guahao" EntitySet="Guahao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Morder_Guahao" Association="Self.FK_Morder_Guahao">
+            <End Role="Guahao" EntitySet="Guahao" />
+            <End Role="Morder" EntitySet="Morder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zhuyuan_Guahao" Association="Self.FK_Zhuyuan_Guahao">
+            <End Role="Guahao" EntitySet="Guahao" />
+            <End Role="Zhuyuan" EntitySet="Zhuyuan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Morder_Medicine" Association="Self.FK_Morder_Medicine">
+            <End Role="Medicine" EntitySet="Medicine" />
+            <End Role="Morder" EntitySet="Morder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HospitalDBModelStoreContainer" CdmEntityContainer="HospitalDBEntities">
+          <EntitySetMapping Name="Bumen">
+            <EntityTypeMapping TypeName="HospitalDBModel.Bumen">
+              <MappingFragment StoreEntitySet="Bumen">
+                <ScalarProperty Name="Bid" ColumnName="Bid" />
+                <ScalarProperty Name="Bname" ColumnName="Bname" />
+                <ScalarProperty Name="Bmiaoshu" ColumnName="Bmiaoshu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctor">
+            <EntityTypeMapping TypeName="HospitalDBModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="YsID" ColumnName="YsID" />
+                <ScalarProperty Name="Yname" ColumnName="Yname" />
+                <ScalarProperty Name="Yphone" ColumnName="Yphone" />
+                <ScalarProperty Name="Yzhuzhi" ColumnName="Yzhuzhi" />
+                <ScalarProperty Name="Yjianjie" ColumnName="Yjianjie" />
+                <ScalarProperty Name="Yzhicheng" ColumnName="Yzhicheng" />
+                <ScalarProperty Name="Ysex" ColumnName="Ysex" />
+                <ScalarProperty Name="Yold" ColumnName="Yold" />
+                <ScalarProperty Name="Yphoto" ColumnName="Yphoto" />
+                <ScalarProperty Name="Bid" ColumnName="Bid" />
+                <ScalarProperty Name="Ystate" ColumnName="Ystate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Guahao">
+            <EntityTypeMapping TypeName="HospitalDBModel.Guahao">
+              <MappingFragment StoreEntitySet="Guahao">
+                <ScalarProperty Name="Gid" ColumnName="Gid" />
+                <ScalarProperty Name="Gname" ColumnName="Gname" />
+                <ScalarProperty Name="GPhone" ColumnName="GPhone" />
+                <ScalarProperty Name="Gshenfenzheng" ColumnName="Gshenfenzheng" />
+                <ScalarProperty Name="GSex" ColumnName="GSex" />
+                <ScalarProperty Name="Gbingli" ColumnName="Gbingli" />
+                <ScalarProperty Name="YsID" ColumnName="YsID" />
+                <ScalarProperty Name="Gstate" ColumnName="Gstate" />
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="Gtime" ColumnName="Gtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Login">
+            <EntityTypeMapping TypeName="HospitalDBModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Zhiwu" ColumnName="Zhiwu" />
+                <ScalarProperty Name="YsID" ColumnName="YsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicine">
+            <EntityTypeMapping TypeName="HospitalDBModel.Medicine">
+              <MappingFragment StoreEntitySet="Medicine">
+                <ScalarProperty Name="medicineID" ColumnName="medicineID" />
+                <ScalarProperty Name="Mname" ColumnName="Mname" />
+                <ScalarProperty Name="Mshu" ColumnName="Mshu" />
+                <ScalarProperty Name="Mdanwei" ColumnName="Mdanwei" />
+                <ScalarProperty Name="Mdizhi" ColumnName="Mdizhi" />
+                <ScalarProperty Name="Mliaoxiao" ColumnName="Mliaoxiao" />
+                <ScalarProperty Name="Mmoneyj" ColumnName="Mmoneyj" />
+                <ScalarProperty Name="Mmoneyc" ColumnName="Mmoneyc" />
+                <ScalarProperty Name="Mshengchan" ColumnName="Mshengchan" />
+                <ScalarProperty Name="Mguoqi" ColumnName="Mguoqi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Morder">
+            <EntityTypeMapping TypeName="HospitalDBModel.Morder">
+              <MappingFragment StoreEntitySet="Morder">
+                <ScalarProperty Name="OrderIDm" ColumnName="OrderIDm" />
+                <ScalarProperty Name="medicineID" ColumnName="medicineID" />
+                <ScalarProperty Name="Gid" ColumnName="Gid" />
+                <ScalarProperty Name="Mshu" ColumnName="Mshu" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="miaoshu" ColumnName="miaoshu" />
+                <ScalarProperty Name="zhifu" ColumnName="zhifu" />
+                <ScalarProperty Name="mhz" ColumnName="mhz" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paiban">
+            <EntityTypeMapping TypeName="HospitalDBModel.Paiban">
+              <MappingFragment StoreEntitySet="Paiban">
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="Ptimek" ColumnName="Ptimek" />
+                <ScalarProperty Name="Ptimej" ColumnName="Ptimej" />
+                <ScalarProperty Name="YsID" ColumnName="YsID" />
+                <ScalarProperty Name="Pmoney" ColumnName="Pmoney" />
+                <ScalarProperty Name="Pstate" ColumnName="Pstate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="HospitalDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wx">
+            <EntityTypeMapping TypeName="HospitalDBModel.Wx">
+              <MappingFragment StoreEntitySet="Wx">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="Wxphone" ColumnName="Wxphone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Xiangmu">
+            <EntityTypeMapping TypeName="HospitalDBModel.Xiangmu">
+              <MappingFragment StoreEntitySet="Xiangmu">
+                <ScalarProperty Name="Xid" ColumnName="Xid" />
+                <ScalarProperty Name="Xname" ColumnName="Xname" />
+                <ScalarProperty Name="Xmoney" ColumnName="Xmoney" />
+                <ScalarProperty Name="Xchenben" ColumnName="Xchenben" />
+                <ScalarProperty Name="Xstate" ColumnName="Xstate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zhuyuan">
+            <EntityTypeMapping TypeName="HospitalDBModel.Zhuyuan">
+              <MappingFragment StoreEntitySet="Zhuyuan">
+                <ScalarProperty Name="Zhuid" ColumnName="Zhuid" />
+                <ScalarProperty Name="Gid" ColumnName="Gid" />
+                <ScalarProperty Name="Ke" ColumnName="Ke" />
+                <ScalarProperty Name="Chuang" ColumnName="Chuang" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="money" ColumnName="money" />
+                <ScalarProperty Name="riqi" ColumnName="riqi" />
+                <ScalarProperty Name="riqic" ColumnName="riqic" />
+                <ScalarProperty Name="moneyz" ColumnName="moneyz" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

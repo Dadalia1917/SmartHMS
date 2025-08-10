@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HospitalDBModelStoreContainer" CdmEntityContainer="HospitalDBEntities">
+    <EntitySetMapping Name="Bumen">
+      <EntityTypeMapping TypeName="HospitalDBModel.Bumen">
+        <MappingFragment StoreEntitySet="Bumen">
+          <ScalarProperty Name="Bid" ColumnName="Bid" />
+          <ScalarProperty Name="Bname" ColumnName="Bname" />
+          <ScalarProperty Name="Bmiaoshu" ColumnName="Bmiaoshu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctor">
+      <EntityTypeMapping TypeName="HospitalDBModel.Doctor">
+        <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="YsID" ColumnName="YsID" />
+          <ScalarProperty Name="Yname" ColumnName="Yname" />
+          <ScalarProperty Name="Yphone" ColumnName="Yphone" />
+          <ScalarProperty Name="Yzhuzhi" ColumnName="Yzhuzhi" />
+          <ScalarProperty Name="Yjianjie" ColumnName="Yjianjie" />
+          <ScalarProperty Name="Yzhicheng" ColumnName="Yzhicheng" />
+          <ScalarProperty Name="Ysex" ColumnName="Ysex" />
+          <ScalarProperty Name="Yold" ColumnName="Yold" />
+          <ScalarProperty Name="Yphoto" ColumnName="Yphoto" />
+          <ScalarProperty Name="Bid" ColumnName="Bid" />
+          <ScalarProperty Name="Ystate" ColumnName="Ystate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Guahao">
+      <EntityTypeMapping TypeName="HospitalDBModel.Guahao">
+        <MappingFragment StoreEntitySet="Guahao">
+          <ScalarProperty Name="Gid" ColumnName="Gid" />
+          <ScalarProperty Name="Gname" ColumnName="Gname" />
+          <ScalarProperty Name="GPhone" ColumnName="GPhone" />
+          <ScalarProperty Name="Gshenfenzheng" ColumnName="Gshenfenzheng" />
+          <ScalarProperty Name="GSex" ColumnName="GSex" />
+          <ScalarProperty Name="Gbingli" ColumnName="Gbingli" />
+          <ScalarProperty Name="YsID" ColumnName="YsID" />
+          <ScalarProperty Name="Gstate" ColumnName="Gstate" />
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+          <ScalarProperty Name="Gtime" ColumnName="Gtime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Login">
+      <EntityTypeMapping TypeName="HospitalDBModel.Login">
+        <MappingFragment StoreEntitySet="Login">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Zhiwu" ColumnName="Zhiwu" />
+          <ScalarProperty Name="YsID" ColumnName="YsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Medicine">
+      <EntityTypeMapping TypeName="HospitalDBModel.Medicine">
+        <MappingFragment StoreEntitySet="Medicine">
+          <ScalarProperty Name="medicineID" ColumnName="medicineID" />
+          <ScalarProperty Name="Mname" ColumnName="Mname" />
+          <ScalarProperty Name="Mshu" ColumnName="Mshu" />
+          <ScalarProperty Name="Mdanwei" ColumnName="Mdanwei" />
+          <ScalarProperty Name="Mdizhi" ColumnName="Mdizhi" />
+          <ScalarProperty Name="Mliaoxiao" ColumnName="Mliaoxiao" />
+          <ScalarProperty Name="Mmoneyj" ColumnName="Mmoneyj" />
+          <ScalarProperty Name="Mmoneyc" ColumnName="Mmoneyc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Morder">
+      <EntityTypeMapping TypeName="HospitalDBModel.Morder">
+        <MappingFragment StoreEntitySet="Morder">
+          <ScalarProperty Name="OrderIDm" ColumnName="OrderIDm" />
+          <ScalarProperty Name="medicineID" ColumnName="medicineID" />
+          <ScalarProperty Name="Gid" ColumnName="Gid" />
+          <ScalarProperty Name="Mshu" ColumnName="Mshu" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="miaoshu" ColumnName="miaoshu" />
+          <ScalarProperty Name="zhifu" ColumnName="zhifu" />
+          <ScalarProperty Name="mhz" ColumnName="mhz" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Paiban">
+      <EntityTypeMapping TypeName="HospitalDBModel.Paiban">
+        <MappingFragment StoreEntitySet="Paiban">
+          <ScalarProperty Name="Pid" ColumnName="Pid" />
+          <ScalarProperty Name="Ptimek" ColumnName="Ptimek" />
+          <ScalarProperty Name="Ptimej" ColumnName="Ptimej" />
+          <ScalarProperty Name="YsID" ColumnName="YsID" />
+          <ScalarProperty Name="Pmoney" ColumnName="Pmoney" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Wx">
+      <EntityTypeMapping TypeName="HospitalDBModel.Wx">
+        <MappingFragment StoreEntitySet="Wx">
+          <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+          <ScalarProperty Name="Wxphone" ColumnName="Wxphone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zhuyuan">
+      <EntityTypeMapping TypeName="HospitalDBModel.Zhuyuan">
+        <MappingFragment StoreEntitySet="Zhuyuan">
+          <ScalarProperty Name="Zhuid" ColumnName="Zhuid" />
+          <ScalarProperty Name="Gid" ColumnName="Gid" />
+          <ScalarProperty Name="Ke" ColumnName="Ke" />
+          <ScalarProperty Name="Chuang" ColumnName="Chuang" />
+          <ScalarProperty Name="state" ColumnName="state" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

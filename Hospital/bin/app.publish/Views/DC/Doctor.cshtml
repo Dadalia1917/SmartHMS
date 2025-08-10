@@ -1,0 +1,396 @@
+﻿
+@{
+    ViewBag.Title = "Doctor";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IEnumerable<Hospital.Models.Doctor>
+<style>
+    .doctor_img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">数据中心</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">数据中心</a></li>
+                                <li class="breadcrumb-item active">医生管理</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <form action="/DC/Doctor/" method="post">
+                                <input type="text"name="Ysname" placeholder="请输入医生姓名" />&nbsp;<input type="submit" value="查询" class="btn btn-primary" />
+                                &nbsp;<input type="button" value="添加" class="btn btn-primary" onclick="" data-toggle="modal" data-target="#AddYS" />
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>医生编号</th>
+                                            <th>医生姓名</th>
+                                            <th>医生手机号</th>
+                                            <th>住址</th>
+                                            <th>简介</th>
+                                            <th>职务</th>
+                                            <th>性别</th>
+                                            <th>年龄</th>
+                                            <th>照片</th>
+                                            <th>部门</th>
+                                            <th>在院状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.YsID</td>
+                                            <td>@item.Yname</td>
+                                            <td>@item.Yphone</td>
+                                            <td>@item.Yzhuzhi</td>
+                                            <td>@item.Yjianjie</td>
+                                            <td>@item.Yzhicheng</td>
+                                            <td>@item.Ysex</td>
+                                            <td>@item.Yold 岁</td>
+                                            <td><img class="doctor_img" src="~/images/Doctor/@item.Yphoto" />
+                                            <td>@item.Bumen.Bname</td>
+                                            <td>@item.Ystate</td>
+                                            <td>
+                                                <input type="button" data-toggle="modal"onclick="Fu('@item.YsID', '@item.Yname', '@item.Yphone', '@item.Yzhuzhi', '@item.Yjianjie', '@item.Yzhicheng', '@item.Ysex', '@item.Yold', '@item.Bid', '@item.Ystate')" data-target="#XiuYS" class="btn btn-danger" value="编辑" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 添加医生弹窗开始 -->
+            <div class="modal fade"  id="AddYS">
+                <!-- 对话框 -->
+                <div class="modal-dialog" >
+                    <!-- 头部样式 -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="text-center">添加医生信息</h2>
+                        </div>
+                        <div class="form-horizontal" enctype="multipart/form-data">
+                            <!-- 内容部分 -->
+                            <div class="modal-body" >
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生姓名：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="Yname">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生手机号：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="" id="Yphone">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">年龄：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="Yold">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生住址：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="Yzhuzhi">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生简介：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="" id="Yjianjie">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生职务：</label>
+                                    <div class="col-sm-9">
+                                        <select id="Yzhicheng" class="form-control">
+                                            <option value="">--请选择--</option>
+                                            <option value="普通医生">普通医生</option>
+                                            <option value="实习医生">实习医生</option>
+                                            <option value="主治医生">主治医生</option>
+                                            <option value="副主治医生">副主治医生</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">性别：</label>
+                                    <div class="col-sm-9">
+                                        <input type="radio" name="sex" value="男">男
+                                        &nbsp;&nbsp;
+                                        <input type="radio" name="sex" value="女">女
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生在职状态：</label>
+                                    <div class="col-sm-9">
+                                        <select id="Ystate" class="form-control">
+                                            <option value="在职">在职</option>
+                                            <option value="休假">休假</option>
+                                            <option value="已离职">已离职</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">科室：</label>
+                                    <div class="col-sm-9">
+                                        <select id="Bid" class="form-control">
+                                            <option value="0">--请选择--</option>
+                                            @foreach (var item in ViewBag.k)
+                                            {
+                                                <option value="@item.Bid">@item.Bname</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">照片上传：</label>
+                                    <div class="col-sm-9">
+                                        <input name="file" id="file" type="file" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 底部按钮-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" id="btns">确认</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 添加医生弹窗结束 -->
+
+            <!-- 修改医生弹窗开始 -->
+            <div class="modal" id="XiuYS">
+                <!-- 对话框 -->
+                <div class="modal-dialog">
+                    <!-- 头部样式 -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="text-center">修改医生信息</h2>
+                        </div>
+                        <div class="form-horizontal" enctype="multipart/form-data">
+                            <!-- 内容部分 -->
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生姓名：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="Yname1">
+                                        <input type="hidden" id="YsID1"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生手机号：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="" id="Yphone1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">年龄：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="Yold1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生住址：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="Yzhuzhi1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生简介：</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" value="" id="Yjianjie1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生职务：</label>
+                                    <div class="col-sm-9">
+                                        <select id="Yzhicheng1" class="form-control">
+                                            <option value="">--请选择--</option>
+                                            <option value="普通医生">普通医生</option>
+                                            <option value="实习医生">实习医生</option>
+                                            <option value="主治医生">主治医生</option>
+                                            <option value="副主治医生">副主治医生</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">性别：</label>
+                                    <div class="col-sm-9">
+                                        <select id="Ysel1" class="form-control">
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">医生在职状态：</label>
+                                    <div class="col-sm-9">
+                                        <select id="Ystate1" class="form-control">
+                                            <option value="在职">在职</option>
+                                            <option value="休假">休假</option>
+                                            <option value="已离职">已离职</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">科室：</label>
+                                    <div class="col-sm-9">
+                                        <select id="Bid1" class="form-control">
+                                            <option value="0">--请选择--</option>
+                                            @foreach (var item in ViewBag.k)
+                                            {
+                                                <option value="@item.Bid">@item.Bname</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label">照片上传：</label>
+                                    <div class="col-sm-9">
+                                        <input name="file" id="file1" type="file" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 底部按钮-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" id="btns1">确认</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 修改医生弹窗结束 -->
+        </div>
+    </div>
+</div>
+<script>
+    //修改医生
+    function Fu(YsID, Yname, Yphone, Yzhuzhi, Yjianjie, Yzhicheng, Ysex, Yold, Bid, Ystate) {
+            $("#YsID1").val(YsID),
+            $("#Yname1").val(Yname),
+            $("#Yphone1").val(Yphone),
+            $("#Yold1").val(Yold),
+            $("#Yzhuzhi1").val(Yzhuzhi),
+            $("#Yjianjie1").val(Yjianjie),
+            $("#Yzhicheng1").val(Yzhicheng),
+            $('#Ysel1').val(Ysex),
+            $("#Ystate1").val(Ystate),
+            $("#Bid1").val(Bid)
+    };
+    $(function () {
+        $("#btns1").click(function () {
+                ajaxFileXiu();       
+        })
+    })
+    function ajaxFileXiu() {
+        $.ajaxFileUpload
+            (
+                {
+                    url: '/Dc/XiuYs', //用于文件上传的服务器端请求地址
+                    type: 'Post',
+                    data: {
+                        YsID: $("#YsID1").val(),
+                        Yname: $("#Yname1").val(),
+                        Yphone: $("#Yphone1").val(),
+                        Yold: $("#Yold1").val(),
+                        Yzhuzhi: $("#Yzhuzhi1").val(),
+                        Yjianjie: $("#Yjianjie1").val(),
+                        Yzhicheng: $("#Yzhicheng1").val(),
+                        Ysex: $('#Ysel1').val(),
+                        Ystate: $("#Ystate1").val(),
+                        Bid: $("#Bid1").val()
+                    }, //此参数非常严谨，写错一个引号都不行
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'file1', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    async: false,
+                    success: function (msg)  //服务器成功响应处理函数
+                    {
+                        if (msg == "yes") {
+                            alert("修改成功！")
+                            location.href = "/Dc/Doctor";
+                        }
+                    },
+                }
+            )
+        return false;
+    };
+    //添加医生
+    $(function () {
+        $("#btns").click(function () {
+            if ($("#file").val().length > 0) {
+                ajaxFileUpload();
+            }
+            else {
+                alert("请选择图片");
+            }
+        })
+    });
+    function ajaxFileUpload() {
+        $.ajaxFileUpload
+            (
+                {
+                    url: '/Dc/AddYs', //用于文件上传的服务器端请求地址
+                    type: 'Post',
+                    data: {
+                        Yname: $("#Yname").val(),
+                        Yphone: $("#Yphone").val(),
+                        Yold: $("#Yold").val(),
+                        Yzhuzhi: $("#Yzhuzhi").val(),
+                        Yjianjie: $("#Yjianjie").val(),
+                        Yzhicheng: $("#Yzhicheng").val(),
+                        Ysex: $('input[name=sex]:checked').val(),
+                        Ystate: $("#Ystate").val(),
+                        Bid: $("#Bid").val()
+                    }, //此参数非常严谨，写错一个引号都不行
+                    secureuri: false, //一般设置为false
+                    fileElementId: 'file', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                    dataType: 'text', //返回值类型 一般设置为json
+                    async:false,
+                    success: function (msg)  //服务器成功响应处理函数
+                    {
+                        if (msg == "yes") {
+                            alert("添加成功！")
+                            location.href = "/Dc/Doctor";
+                        }
+                    },
+                }
+            )
+        return false;
+    }
+</script>

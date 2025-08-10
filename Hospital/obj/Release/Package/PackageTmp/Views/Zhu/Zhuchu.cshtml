@@ -1,0 +1,327 @@
+﻿
+@{
+    ViewBag.Title = "Zhuchu";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IEnumerable<Hospital.Models.Zhuyuan>
+
+<style>
+    .spa {
+        margin: 20px;
+        font-size: 15px;
+    }
+
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .b {
+        margin: 5px;
+    }
+</style>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">住院管理</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">住院管理</a></li>
+                                <li class="breadcrumb-item active">住院处方划价</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-10 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">处方划价</h4>
+                            <div>
+                                <span class="spa">患者姓名：<input id="name" type="text" /></span>
+                                <span class="spa">患者身份证：<input id="sf" type="text" /></span>
+                                <span class="spa">患者性别：<input id="sex" type="text" /></span>
+                                <span class="spa">科室：<input id="ke" type="text" /></span><br /><br />
+                                <span class="spa">责任医生：<input id="Yname" type="text" /></span>
+                                <span class="spa">患者手机号：<input id="Hphone" type="text" /></span>
+                                <span class="spa">住院编号：<input id="zhuid" type="text" /> <input id="Gid" type="hidden" /></span>
+                                <span class="spa">床位：<input id="chuang" type="text" /></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <input type="button" class="btn btn-danger b" data-toggle="modal" data-target="#Xuan" value="选择住院患者" />
+                            @*<input type="button" class="btn btn-info b" data-toggle="modal" data-target="#Bingqin" value="填写病因" />
+                            <input type="button" class="btn btn-info b" onclick="Zhuyuan()" value="转住院部" />*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">药房药品</h4>
+                            <br />
+                            <form action="/DC/Doctor/" method="post">
+
+                                <table class="table table-bordered table-hover" id="t1">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>药品编号</th>
+                                            <th>药品名称</th>
+                                            <th>剩余数量</th>
+                                            <th>单位</th>
+                                            <th>价格</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in ViewBag.Yao)
+                                    {
+                                        <tr>
+                                            <td>@item.medicineID</td>
+                                            <td>@item.Mname</td>
+                                            <td id="m_@item.medicineID">@item.Mshu</td>
+                                            <td>@item.Mdanwei</td>
+                                            <td>@item.Mmoneyc</td>
+                                            <td>
+                                                <input type="button" onclick="Buy(@item.medicineID)" value="选择" class="btn btn-danger" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body tt">
+                            <h4 class="card-title">患者处方</h4><br />
+                            <form action="/DC/Doctor/" method="post">
+                                <table class="table table-bordered table-hover" id="t2">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>药品编号</th>
+                                            <th>药品名称</th>
+                                            <th>数量</th>
+                                            <th>单位</th>
+                                            <th>价格</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+
+                                </table>
+                                <input class="btn btn-danger" onclick="TiJiao()" type="button" value="提交划价" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--选择患者弹窗开始-->
+<div class="modal" id="Xuan">
+    <div class="modal-dialog" style="max-width:1500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">选择患者</h2>
+            </div>
+            <div class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <th>患者姓名</th>
+                                    <th>患者身份证</th>
+                                    <th>患者性别</th>
+                                    <th>科室</th>
+                                    <th>坐诊医生</th>
+                                    <th>患者手机号</th>
+                                    <th>住院编号</th>
+                                    <th>操作</th>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Guahao.Gname</td>
+                                        <td>@item.Guahao.Gshenfenzheng</td>
+                                        <td>@item.Guahao.GSex</td>
+                                        <td>@item.Guahao.Paiban.Doctor.Bumen.Bname</td>
+                                        <td>@item.Guahao.Paiban.Doctor.Yname</td>
+                                        <td>@item.Guahao.GPhone</td>
+                                        <td>@item.Zhuid</td>
+                                        <td>
+                                            <input data-dismiss="modal" type="button" class="btn btn-primary"
+                                                   onclick="Tian('@item.Guahao.Gname', '@item.Guahao.Gshenfenzheng', '@item.Guahao.GSex', '@item.Guahao.Paiban.Doctor.Bumen.Bname', '@item.Guahao.Paiban.Doctor.Yname', '@item.Guahao.GPhone', '@item.Guahao.Gid', '@item.Chuang', '@item.Zhuid')" value="选择" />
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </form>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        @*<button type="button" class="btn btn-info"   id="btns">确认</button>*@
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--选择患者弹窗结束-->
+<!--病情弹窗弹窗开始-->
+<div class="modal" id="Bingqin">
+    <div class="modal-dialog" style="max-width:500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>请如实填写病因！</h4>
+            </div>
+            <div class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <textarea id="Gbingli" style="width:460px;height:260px"></textarea>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="Bing()" data-dismiss="modal" id="btns">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--病情弹窗弹窗结束-->
+<script>
+    //给划价框赋值
+    function Tian(Gname, Gshenfenzheng, GSex, Bname, Yname, GPhone, Gid,chuang,zhuid) {
+        $("#name").val(Gname);
+        $("#sf").val(Gshenfenzheng);
+        $("#sex").val(GSex);
+        $("#ke").val(Bname);
+        $("#Yname").val(Yname);
+        $("#Hphone").val(GPhone);
+        $("#Gid").val(Gid);
+        $("#chuang").val(chuang);
+        $("#zhuid").val(zhuid);
+    };
+   
+   
+    //住院药品添加操作
+    function Buy(id) {
+        console.log(id)
+        $.ajax({
+            url: "/Zhu/Buy",
+            type: "post",
+            data: {
+                id: id
+            },
+            success(res) {
+                console.log(res)
+                var num = $("#m_" + res.data.medicineID).text() - 1;
+                if (num < 0) {
+                    alert("库存不足");
+                } else {
+                    $("#m_" + res.data.medicineID).text(num);
+                    if ($("#t2 tbody tr").length == 0) {
+                        $("#t2 tbody").append('<tr><td id="tr_' + res.data.medicineID + '">' + res.data.medicineID + '</td>' +
+                            '<td>' + res.data.Mname + '</td>' +
+                            '<td id="n_' + res.data.medicineID + '">1</td>' +
+                            '<td>' + res.data.Mdanwei + '</td >' +
+                            '<td>' + res.data.Mmoneyc + '</td> ' +
+                            '<td><input type="button" onclick="Del(0)" value="删除" class="btn btn-danger" /></td></tr > ')
+                    } else {
+                        for (var i = 0; i < $("#t2 tbody tr").length; i++) {
+                            if ($("#tr_" + res.data.medicineID).text() == res.data.medicineID) {
+                                var num1 = parseInt($("#n_" + res.data.medicineID).text()) + 1;
+                                $("#n_" + res.data.medicineID).text(num1);
+                                break;
+                            } else {
+                                $("#t2 tbody").append('<tr><td id="tr_' + res.data.medicineID + '">' + res.data.medicineID + '</td>' +
+                                    '<td>' + res.data.Mname + '</td>' +
+                                    '<td id="n_' + res.data.medicineID + '">1</td>' +
+                                    '<td>' + res.data.Mdanwei + '</td >' +
+                                    '<td>' + res.data.Mmoneyc + '</td> ' +
+                                    '<td><input type="button" onclick="Del(' + i + ')" value="删除" class="btn btn-danger" /></td></tr > ')
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    };
+    //药品删除操作
+    function Del(index) {
+        var id = $("#t2 tbody tr:eq(" + index + ")").find("td:eq(0)").text();
+        var m_num = parseInt($("#t2 tbody tr:eq(" + index + ")").find("td:eq(2)").text());
+        console.log(id)
+        var num = parseInt($("#m_" + id).text()) + m_num;
+        $("#m_" + id).text(num);
+        var tab = $("#t2 tbody tr:eq(" + index + ")");
+        tab.remove();
+    };
+    //处方药品提交方法
+    function TiJiao() {
+        var list = [];
+        for (var i = 0; i < $("#t2 tbody tr").length; i++) {
+            var item = { ids: 0, num: 0, gid: 0, state: 0, zhifu: 0, mhz:0 }
+            item.ids = $("#t2 tbody tr:eq(" + i + ")").find("td:eq(0)").text();
+            item.num = $("#t2 tbody tr:eq(" + i + ")").find("td:eq(2)").text();
+            item.gid = $("#Gid").val();
+            item.state = '药品';
+            item.zhifu = '未支付';
+            item.mhz = '住院';
+            list.push(item);
+        }
+        if (list == "") {
+            alert("请先选择药品！再提交！")
+        } else {
+            $.ajax({
+                url: "/Zhu/submit",
+                type: "post",
+                data: {
+                    list: list
+                },
+                success(res) {
+                    if (res.code == 0) {
+                        alert("添加成功！")
+                        location.href = "/Zhu/Zhuchu";
+                    }
+                }
+            })
+        }
+
+    }
+</script>
+

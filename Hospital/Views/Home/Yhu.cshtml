@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "Yhu";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@model IEnumerable<Hospital.Models.Login>
+<style>
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- 头部导航栏开始 -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">系统管理</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">系统管理</a></li>
+                                <li class="breadcrumb-item active">用户管理</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 头部导航栏结束 -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card ">
+                        <div class="card-body">
+                            <h4 class="card-title">系统用户</h4>
+                            <form action="/Home/Yhu" method="post">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>用户编号</th>
+                                            <th>用户姓名</th>
+                                            <th>用户账号</th>
+                                            <th>用户密码</th>
+                                            <th>用户状态</th>
+                                            <th>身份</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                    {
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.Doctor.Yname</td>
+                                    <td>@item.Account</td>
+                                    <td>@item.Password</td>
+                                    <td>@item.Doctor.Ystate</td>
+                                    <td>@item.Zhiwu</td>
+                                    <td>
+                                        <input type="button" data-toggle="modal" data-target="#Xiuchu" onclick="Fu('@item.ID','@item.Account','@item.Password','@item.Zhiwu')" class="btn btn-danger" value="编辑" />
+                                        <input type="button" onclick="del('@item.ID')" class="btn btn-danger" value="删除" />
+                                        <input type="button" data-toggle="modal" data-target="#Addchu" class="btn btn-danger" value="添加" />
+                                    </td>
+                                </tr>
+                                    }
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- 我的添加弹窗开始 -->
+<div class="modal" id="Addchu">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">添加账号信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data" action="/Home/Yhu" method="post">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">用户账号：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"name="Account" id="Account1">
+                            <input type="hidden" class="form-control"name="ID" id="ID1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">用户密码：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"name="Password" value="" id="Password1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">用户职务：</label>
+                        <div class="col-sm-9">
+                            <select name="Zhiwu" id="Zhiwu1" class="form-control">
+                                <option value="">--请选择--</option>
+                                <option value="超级管理员">超级管理员</option>
+                                <option value="医生职员">医生职员</option>
+                                <option value="医护职员">医护职员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">选择职员：</label>
+                        <div class="col-sm-9">
+                            <select name="YsID" id="Bid1" class="form-control">
+                                <option value="0">--请选择--</option>
+                                @foreach (var item in ViewBag.li)
+                                {
+                                    <option value="@item.YsID">@item.Yname</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info" >确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 我的添加弹窗结束 -->
+
+<!-- 我的修改弹窗开始 -->
+<div class="modal" id="Xiuchu">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">修改账号信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">用户账号：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Account">
+                            <input type="hidden" class="form-control" id="ID">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">用户密码：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="" id="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">用户职务：</label>
+                        <div class="col-sm-9">
+                            <select id="Zhiwu" class="form-control">
+                                <option value="">--请选择--</option>
+                                <option value="超级管理员">超级管理员</option>
+                                <option value="医生职员">医生职员</option>
+                                <option value="医护职员">医护职员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="Xiu()">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 我的修改弹窗结束 -->
+<script>
+    function del(id) {
+        if (confirm("确认删除吗？")) {
+            $.ajax({
+                url: "/Home/Del",
+                data: {
+                    ac: id
+                },
+                success: function (msg) {
+                    if (msg == "yes") {
+                        alert("删除成功")
+                        location.href = "/Home/Yhu";
+                    }
+                }
+            })
+        }
+    };
+    //赋值给修改弹窗
+    function Fu(ID, Account, Password, Zhiwu) {
+        $("#ID").val(ID);
+        $("#Account").val(Account);
+        $("#Password").val(Password);
+        $("#Zhiwu").val(Zhiwu);
+    };
+    //修改
+    function Xiu() {
+        $.ajax({
+            url: "/Home/Xiu",
+            data: {
+                ID: $("#ID").val(),
+                Account: $("#Account").val(),
+                Password: $("#Password").val(),
+                Zhiwu:$("#Zhiwu").val()
+
+            },
+            success: function (msg) {
+                if (msg == "yes") {
+                    alert("修改成功")
+                    location.href = "/Home/Yhu";
+                }
+            }
+        })
+    }
+</script>

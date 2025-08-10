@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e19255f97c9e42f1881c40ef433a6488" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="HospitalDBModel.Bumen" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Doctor" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Guahao" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Login" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Medicine" Width="1.5" PointX="7.5" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Morder" Width="1.5" PointX="12.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Paiban" Width="1.5" PointX="4.875" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.sysdiagrams" Width="1.5" PointX="18.625" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Wx" Width="1.5" PointX="18.625" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Xiangmu" Width="1.5" PointX="19.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HospitalDBModel.Zhuyuan" Width="1.5" PointX="11.25" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="HospitalDBModel.FK_Doctor_Bumen" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Login_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Paiban_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Guahao_Paiban" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Morder_Guahao" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Zhuyuan_Guahao" ManuallyRouted="false" />
+        <AssociationConnector Association="HospitalDBModel.FK_Morder_Medicine" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

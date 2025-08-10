@@ -1,0 +1,159 @@
+﻿<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+    <div data-simplebar class="h-100">
+
+        <div class="navbar-brand-box">
+            <a href="/Home/index" >
+                <img src="~/images/医院3.png" />
+            </a>
+        </div>
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title">菜单列表</li>
+                <li>
+                    <a href="/Home/index" class="waves-effect"><i class='bx bx-home-smile'></i><span>主页</span></a>
+                </li>
+                @if (Session["zhiwu"].ToString() == "超级管理员")
+                {
+
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-cookie"></i><span>门诊管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/OPC/GuaHao">挂号预约</a></li>
+                            <li><a href="/OPC/Chufang">门诊处方划价</a></li>
+                            <li><a href="/OPC/Huanzhe">门诊患者库</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-table"></i><span>住院管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="~/Zhu/Index">住院出院中心</a></li>
+                            <li><a href="~/Zhu/Zhuchu">住院处方划价</a></li>
+                            <li><a href="/Zhu/Huan">住院患者库</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-doughnut-chart"></i><span>系统管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/Home/Yhu">用户管理</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bxs-eraser"></i><span>出诊管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/Chu/Paiban">医生出诊排班</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-aperture"></i><span>药房管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/Pharmacy/Medicine">药品详情</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-file"></i><span>数据中心</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/DC/Bumen">科室中心</a></li>
+                            <li><a href="/DC/Doctor">医生管理</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/Jiao/Jiao" class=" waves-effect"><i class="bx bx-calendar"></i><span>缴费中心</span></a></li>
+                }
+                @if (Session["zhiwu"].ToString() == "医生职员")
+                {
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-cookie"></i><span>门诊管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/OPC/GuaHao">挂号预约</a></li>
+                            <li><a href="/OPC/Chufang">门诊处方划价</a></li>
+                            <li><a href="/OPC/Huanzhe">门诊患者库</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-table"></i><span>住院管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="~/Zhu/Index">住院出院中心</a></li>
+                            <li><a href="~/Zhu/Zhuchu">住院处方划价</a></li>
+                            <li><a href="/Zhu/Huan">住院患者库</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (Session["zhiwu"].ToString() == "医护职员")
+                {
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-cookie"></i><span>门诊管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/OPC/GuaHao">挂号预约</a></li>
+                            @*<li><a href="/OPC/Chufang">门诊处方划价</a></li>
+                    <li><a href="/OPC/Huanzhe">门诊患者库</a></li>*@
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="bx bx-aperture"></i><span>药房管理</span></a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="/Pharmacy/Medicine">药品详情</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/Jiao/Jiao" class=" waves-effect"><i class="bx bx-calendar"></i><span>缴费中心</span></a></li>
+                }
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->
+<!--
+    作者：2404518451@qq.com
+    时间：2021-11-08
+    描述：头部状态栏
+-->
+<header id="page-topbar">
+    <div class="navbar-header">
+
+        <div class="d-flex align-items-left">
+            <button type="button" class="btn btn-sm mr-2 d-lg-none px-3 font-size-16 header-item waves-effect"
+                    id="vertical-menu-btn">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
+
+            <div class="dropdown d-none d-sm-inline-block">
+                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="mdi mdi-plus"></i> 
+
+                </button>
+
+            </div>
+            
+        </div>
+
+        <div class="d-flex align-items-center">
+
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="d-none d-sm-inline-block ml-1">欢迎您！@Session["name"] </span>
+                    <i class="mdi mdi-chevron-down d-none d-sm-inline-block"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item d-flex align-items-center justify-content-between"
+                       href="/Home/LogOut">
+                        退出登录
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>

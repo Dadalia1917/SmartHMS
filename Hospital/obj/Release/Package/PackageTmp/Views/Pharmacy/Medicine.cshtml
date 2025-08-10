@@ -1,0 +1,374 @@
+﻿
+@{
+    ViewBag.Title = "Medicine";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<style>
+    .s {
+        margin-top: 20px;
+    }
+
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+@model IEnumerable<Hospital.Models.Medicine>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- 头部导航开始 -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">药房管理</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">药房管理</a></li>
+                                <li class="breadcrumb-item active">药品详情</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 头部导航结束 -->
+            <!--添加药品信息开始-->
+            <div class="row">
+
+                <div class="col-xl-3">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">药品添加</h4>
+                            <div class="s">
+                                <label>药品名称：</label>
+                                <input type="text" id="Mname" />
+                            </div>
+                            <div class="s">
+                                <label>生产厂商：</label>
+                                <input type="text" id="Mdizhi" />
+                            </div>
+                            <div class="s">
+                                <label>药品单位：</label>
+                                <input type="text" id="Mdanwei" />
+                            </div>
+                            <div class="s">
+                                <label>生产数量：</label>
+                                <input type="text" class="" id="Mshu" />
+                            </div>
+                            <div class="s">
+                                <label>药品简介：</label>
+                                <textarea id="Mliaoxiao"></textarea>
+                            </div>
+                            <div class="s">
+                                <label>药品进价：</label>
+                                <input type="text" id="Mmoneyj" />
+                            </div>
+                            <div class="s">
+                                <label>药品售价：</label>
+                                <input type="text" id="Mmoneyc" />
+                            </div>
+                            <div class="s">
+                                <label>生产日期：</label>
+                                <input type="date" id="Mshengchan" />
+                            </div>
+                            <div class="s">
+                                <label>过期日期：</label>
+                                <input type="date" id="Mguoqi" />
+                            </div>
+                            <div class="s btn">
+                                <input type="button" value="确认添加" class="btn btn-danger" onclick="Tian()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-9">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">药品总览</h4>
+                            <form action="/Pharmacy/Medicine/" method="post">
+                                <input type="text" name="Mname" placeholder="请输入药品名" />&nbsp;<input type="submit" value="查询" class="btn btn-primary" />
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>药品编号</th>
+                                            <th>药品名称</th>
+                                            <th>生产厂商</th>
+                                            <th>剩余数量</th>
+                                            <th>药品单位</th>
+                                            <th>药品简介</th>
+                                            <th>药品进价</th>
+                                            <th>药品售价</th>
+                                            <th>生产日期</th>
+                                            <th>过期日期</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.medicineID</td>
+                                            <td>@item.Mname</td>
+                                            <td>@item.Mdizhi</td>
+                                            <td>@item.Mshu</td>
+                                            <td>@item.Mdanwei</td>
+                                            <td>@item.Mliaoxiao</td>
+                                            <td>@item.Mmoneyj</td>
+                                            <td>@item.Mmoneyc</td>
+                                            <td>@item.Mshengchan.ToString("yyyy年 MM月 dd日")</td>
+                                            <td>@item.Mguoqi.ToString("yyyy年 MM月 dd日")</td>
+                                            <td>
+                                                <input type="button" data-toggle="modal" data-target="#Xiu"
+                                                       onclick="Fu('@item.medicineID','@item.Mname','@item.Mdizhi','@item.Mshu','@item.Mdanwei','@item.Mliaoxiao','@item.Mmoneyj','@item.Mmoneyc','@item.Mshengchan','@item.Mguoqi')" class="btn btn-danger" value="修改" />
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--添加药品信息结束-->
+            <!--过期药品信息开始-->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <h4 class="card-title">过期药品总览</h4>
+                            <form action="/Pharmacy/Medicine/" method="post">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>药品编号</th>
+                                            <th>药品名称</th>
+                                            <th>生产厂商</th>
+                                            <th>剩余数量</th>
+                                            <th>药品单位</th>
+                                            <th>药品简介</th>
+                                            <th>药品进价</th>
+                                            <th>药品售价</th>
+                                            <th>生产日期</th>
+                                            <th>过期日期</th>
+                                            <th>状态</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in ViewBag.p)
+                                    {
+                                        <tr>
+                                            <td>@item.medicineID</td>
+                                            <td>@item.Mname</td>
+                                            <td>@item.Mdizhi</td>
+                                            <td>@item.Mshu</td>
+                                            <td>@item.Mdanwei</td>
+                                            <td>@item.Mliaoxiao</td>
+                                            <td>@item.Mmoneyj</td>
+                                            <td>@item.Mmoneyc</td>
+                                            <td>@item.Mshengchan.ToString("yyyy年 MM月 dd日")</td>
+                                            <td>@item.Mguoqi.ToString("yyyy年 MM月 dd日")</td>
+                                            <td style="color:red">已过期</td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--过期药品信息结束-->
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 我的修改弹窗开始 -->
+<div class="modal" id="Xiu">
+    <!-- 对话框 -->
+    <div class="modal-dialog">
+        <!-- 头部样式 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">修改信息</h2>
+            </div>
+            <form class="form-horizontal" enctype="multipart/form-data" method="post" action="/Chu/Paiban/">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">药品名称：</label>
+                        <div class="col-sm-9">
+                            <input type="hidden" name="medicineID1" class="form-control" id="medicineID1" />
+                            <input type="text" name="Mname1" class="form-control" id="Mname1" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">生产厂商：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Mdizhi1" class="form-control"  id="Mdizhi1" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">剩余数量：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Mshu1" class="form-control" id="Mshu1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">药品单位：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Mdanwei1" class="form-control"  id="Mdanwei1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">药品简介：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Mliaoxiao1" class="form-control"  id="Mliaoxiao1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">药品进价：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Mmoneyj1" class="form-control" id="Mmoneyj1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">药品售价：</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Mmoneyc1" class="form-control"  id="Mmoneyc1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">生产日期：</label>
+                        <div class="col-sm-9">
+                            <input type="date" name="Mshengchan1" class="form-control"  id="Mshengchan1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">过期日期：</label>
+                        <div class="col-sm-9">
+                            <input type="date" name="Mguoqi1" class="form-control"  id="Mguoqi1">
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" onclick="Xiu()" class="btn btn-info">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- 我的修改弹窗结束 -->
+
+
+
+<script>
+    //添加方法
+    function Tian() {
+        if (confirm("确认添加吗？")) {
+            $.ajax({
+                url: "/Pharmacy/Addm",
+                data: {
+                    Mname: $("#Mname").val(),
+                    Mdizhi: $("#Mdizhi").val(),
+                    Mshu: $("#Mshu").val(),
+                    Mdanwei: $("#Mdanwei").val(),
+                    Mliaoxiao: $("#Mliaoxiao").val(),
+                    Mmoneyj: $("#Mmoneyj").val(),
+                    Mmoneyc: $("#Mmoneyc").val(),
+                    Mshengchan: $("#Mshengchan").val(),
+                    Mguoqi: $("#Mguoqi").val()
+                },
+                success: function (msg) {
+                    if (msg == "yes") {
+                        confirm("添加成功！")
+                        location.href = "/Pharmacy/Medicine"
+                    }
+                }
+            })
+        }
+    };
+    //修改方法
+    //先给弹窗赋值
+    function Fu(medicineID, Mname, Mdizhi, Mshu, Mdanwei, Mliaoxiao, Mmoneyj, Mmoneyc, Mshengchan, Mguoqi) {
+        //shu1和shu2因为input type=date 所以赋值需要进行转换成它可接收的值类型格式
+        function shu1() {
+            var date = new Date(Mshengchan);
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            var nowDate = year + "-" + month + "-" + day;
+            return nowDate;
+        };
+        function shu2() {
+            var date = new Date(Mguoqi);
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (day < 10) {
+                day = "0" + day;
+            }
+            var nowDate = year + "-" + month + "-" + day;
+            return nowDate;
+        };
+            $("#medicineID1").val(medicineID),
+            $("#Mname1").val(Mname),
+            $("#Mdizhi1").val(Mdizhi),
+            $("#Mshu1").val(Mshu),
+            $("#Mdanwei1").val(Mdanwei),
+            $("#Mliaoxiao1").val(Mliaoxiao),
+            $("#Mmoneyj1").val(Mmoneyj),
+            $("#Mmoneyc1").val(Mmoneyc),
+            $("#Mshengchan1").val(shu1),
+            $("#Mguoqi1").val(shu2())
+
+    };
+    function Xiu() {
+        if (confirm("确认修改吗？")) {
+            $.ajax({
+                url: "/Pharmacy/Xiu",
+                type:"Get",
+                data: {
+                    medicineID: $("#medicineID1").val(),
+                    Mname: $("#Mname1").val(),
+                    Mdizhi: $("#Mdizhi1").val(),
+                    Mshu: $("#Mshu1").val(),
+                    Mdanwei: $("#Mdanwei1").val(),
+                    Mliaoxiao:$("#Mliaoxiao1").val(),
+                    Mmoneyj:$("#Mmoneyj1").val(),
+                    Mmoneyc:$("#Mmoneyc1").val(),
+                    Mshengchan:$("#Mshengchan1").val(),
+                    Mguoqi:$("#Mguoqi1").val()
+                },
+                success: function (msg) {
+                    if (msg == "yes") {
+                        alert("修改成功！")
+                        location.href ="/Pharmacy/Medicine"
+                    }
+                }
+            })
+        }
+    }
+</script>

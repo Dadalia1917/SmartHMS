@@ -1,0 +1,286 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<style>
+    .t1 {
+        margin: 10px;
+    }
+
+        .t1 input {
+            margin: 10px;
+        }
+
+    .table tr td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tr th {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+@model IEnumerable<Hospital.Models.Zhuyuan>
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">住院管理</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">住院管理</a></li>
+                                <li class="breadcrumb-item active">住院出院中心</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <form action="/DC/Doctor/" method="post">
+                                &nbsp;<input type="button" value="添加住院患者" class="btn btn-primary" onclick="" data-toggle="modal" data-target="#Xuan" />
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>住院编号</th>
+                                            <th>患者姓名</th>
+                                            <th>患者身份证</th>
+                                            <th>患者性别</th>
+                                            <th>科室</th>
+                                            <th>医生</th>
+                                            <th>患者手机号</th>
+                                            <th>床位</th>
+                                            <th>在院状态</th>
+                                            <th>入院日期</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (var item in ViewBag.h)
+                                    {
+                                        <tr>
+                                            <td>@item.Zhuid</td>
+                                            <td>@item.Guahao.Gname</td>
+                                            <td>@item.Guahao.Gshenfenzheng</td>
+                                            <td>@item.Guahao.GSex</td>
+                                            <td>@item.Guahao.Paiban.Doctor.Bumen.Bname</td>
+                                            <td>@item.Guahao.Paiban.Doctor.Yname</td>
+                                            <td>@item.Guahao.GPhone</td>
+                                            <td>@item.Chuang</td>
+                                            <td>@item.state</td>
+                                            <td>@item.riqi.ToString("yyyy年 MM月 dd日")</td>
+                                            <td>
+                                                <input type="button" class="btn btn-danger"data-toggle="modal" data-target="#qian" value="出院结算" onclick="Chu('@item.riqi', '@item.Zhuid', '@item.money')" />
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--选择患者弹窗开始-->
+<div class="modal" id="Xuan">
+    <div class="modal-dialog" style="max-width:900px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">入院登记</h2>
+            </div>
+            <div class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="t1">
+                            <label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+                            <input type="text" id="Gname">
+                            <label>挂号编号：</label>
+                            <input type="text" id="Gid">
+                            <label>科室：</label>
+                            <input type="text" id="ke">
+                            <input type="hidden" id="zhu">
+                        </div>
+                        <div class="t1">
+                            <label>分配床位：</label>
+                            <input type="text" id="chuang">
+                            <label>床位金额：</label>
+                            <input type="text" id="money">
+                            <input type="button" data-toggle="modal" data-target="#Huan" class="btn btn-primary" value="选择患者" />
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="Tian()" id="btns">确认</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--选择患者弹窗结束-->
+<!--选择患者弹窗开始-->
+<div class="modal" id="Huan">
+    <div class="modal-dialog" style="max-width:1500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-center">选择患者</h2>
+            </div>
+            <div class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <th>患者姓名</th>
+                                    <th>患者身份证</th>
+                                    <th>患者性别</th>
+                                    <th>科室</th>
+                                    <th>坐诊医生</th>
+                                    <th>患者手机号</th>
+                                    <th>挂号编号</th>
+                                    <th>操作</th>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Guahao.Gname</td>
+                                        <td>@item.Guahao.Gshenfenzheng</td>
+                                        <td>@item.Guahao.GSex</td>
+                                        <td>@item.Guahao.Paiban.Doctor.Bumen.Bname</td>
+                                        <td>@item.Guahao.Paiban.Doctor.Yname</td>
+                                        <td>@item.Guahao.GPhone</td>
+                                        <td>@item.Gid</td>
+                                        <td>
+                                            <input data-dismiss="modal" type="button" class="btn btn-primary"
+                                                   onclick="Ru('@item.Guahao.Gname', '@item.Guahao.Paiban.Doctor.Bumen.Bname', '@item.Gid', '@item.Zhuid')" value="选择" />
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </form>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--选择患者弹窗结束-->
+<!--计算弹窗开始-->
+<div class="modal" id="qian">
+    <div class="modal-dialog" style="max-width:500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>住院费收费情况如下：</h4>
+            </div>
+            <div class="form-horizontal" enctype="multipart/form-data">
+                <!-- 内容部分 -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputPassword3" style="width:180px;" class="col-sm-3 control-label">共住天数：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" readonly="readonly" id="tian">
+                            <input type="hidden" id="zhuid" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" style="width:180px;" class="col-sm-3 control-label">金额/天：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"readonly="readonly" id="money1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" style="width:180px;" class="col-sm-3 control-label">总金额：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"readonly="readonly" id="money2">
+                        </div>
+                    </div>
+                    <!-- 底部按钮-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" onclick="Jiesuan()" data-dismiss="modal" id="btns">确认出院缴纳</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--计算弹窗结束-->
+<script>
+    //为患者信息框赋值
+    function Ru(Gname, ke, Gid, Zhuid) {
+        $("#Gname").val(Gname);
+        $("#ke").val(ke);
+        $("#Gid").val(Gid);
+        $("#zhu").val(Zhuid);
+    };
+    //入院登记
+    function Tian() {
+        $.ajax({
+            url: "/Zhu/Tian",
+            data: {
+                Zhuid: $("#zhu").val(),
+                chuang: $("#chuang").val(),
+                money: $("#money").val()
+            },
+            success: function (msg) {
+                if (msg == "yes") {
+                    alert("入院登记成功！")
+                    location.href = "/Zhu/Index";
+                }
+            }
+        })
+    };
+    //出院结算
+    function Chu(riqi, Zhuid,money) {
+        var endTime = parseInt(new Date().getTime() / 1000 - new Date(riqi).getTime() / 1000);
+        this.timeDay = parseInt(endTime / 60 / 60 / 24);        //相差天数
+        var ti = this.timeDay;
+        if (ti==0) {
+            ti += 1;
+        }
+        var sum = ti * money;
+        $("#tian").val(ti);
+        $("#zhuid").val(Zhuid);
+        $("#money1").val(money);
+        $("#money2").val(sum);
+       
+    }
+    function Jiesuan() {
+         $.ajax({
+            url: "/Zhu/Chu",
+            data: {
+               
+                Zhuid: $("#zhuid").val(),
+                money: $("#money2").val()
+            },
+            success: function (msg) {
+                if (msg=="yes") {
+                    alert("出院结算成功！")
+                    location.href = "/Zhu/Index";
+                }
+            }
+        })
+    }
+    
+</script>
