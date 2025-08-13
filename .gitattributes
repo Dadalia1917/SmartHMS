@@ -1,0 +1,50 @@
+# 告诉GitHub将这些目录和文件类型标记为vendor代码，不计入语言统计
+
+# 第三方JavaScript库和框架
+Hospital/Scripts/* linguist-vendored
+Hospital/assets/js/* linguist-vendored
+Hospital/plugins/* linguist-vendored
+packages/* linguist-vendored
+
+# 特定的第三方库文件
+*.min.js linguist-vendored
+*jquery*.js linguist-vendored
+*bootstrap*.js linguist-vendored
+*modernizr*.js linguist-vendored
+
+# NuGet包文件
+packages/ linguist-vendored
+
+# 编译输出目录
+Hospital/bin/* linguist-vendored
+Hospital/obj/* linguist-vendored
+
+# 第三方CSS文件（也会影响统计）
+Hospital/Content/bootstrap*.css linguist-vendored
+Hospital/plugins/**/*.css linguist-vendored
+Hospital/assets/css/* linguist-vendored
+
+# 字体文件
+*.woff linguist-vendored
+*.woff2 linguist-vendored
+*.ttf linguist-vendored
+*.eot linguist-vendored
+
+# 图片文件
+*.jpg linguist-vendored
+*.png linguist-vendored
+*.gif linguist-vendored
+*.svg linguist-vendored
+*.ico linguist-vendored
+
+# 数据库备份文件
+*.bak linguist-vendored
+
+# 强制C#文件被正确识别
+*.cs linguist-language=C#
+*.cshtml linguist-language=HTML+Razor
+
+# 项目的自定义JavaScript文件（确保被计入统计）
+Hospital/assets/pages/*.js -linguist-vendored
+Hospital/css/style.css -linguist-vendored
+Denlu.js -linguist-vendored

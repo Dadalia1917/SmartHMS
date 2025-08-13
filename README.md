@@ -29,21 +29,24 @@ SmartHMS是一个功能完整的智慧医疗管理系统，为医院的日常运
 
 ## 技术架构
 
-### 后端技术
+### 🔧 核心技术栈
+- **主要语言**: C# (后端业务逻辑)
 - **框架**: ASP.NET MVC 5.2.7
 - **数据库**: Entity Framework 6.2.0 + SQL Server
-- **开发语言**: C# .NET Framework
+- **开发平台**: .NET Framework 4.7.2
 
-### 前端技术
-- **UI框架**: Bootstrap 3.4.1
-- **JavaScript库**: jQuery 3.4.1
-- **图标字体**: Font Awesome
-- **响应式设计**: 支持多设备适配
+### 🎨 前端技术
+- **UI框架**: Bootstrap 3.4.1 (响应式设计)
+- **JavaScript库**: jQuery 3.4.1 (交互增强)
+- **模板引擎**: Razor View Engine
+- **图标支持**: Font Awesome
 
-### 开发工具与依赖
+### 📦 开发工具与依赖
 - **数据处理**: NPOI 2.5.5 (Excel操作支持)
-- **JSON处理**: Newtonsoft.Json 12.0.2
-- **代码优化**: Web Optimization 1.1.3
+- **JSON序列化**: Newtonsoft.Json 12.0.2
+- **资源优化**: ASP.NET Web Optimization 1.1.3
+
+> **语言组成说明**: 本项目是以C#为核心的后端驱动系统，JavaScript主要用于前端交互增强。项目使用了`.gitattributes`文件来确保GitHub正确识别主要开发语言为C#。
 
 ## 系统特色
 

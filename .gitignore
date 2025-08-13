@@ -1,0 +1,101 @@
+# Visual Studio生成的文件
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+*.tmp
+
+# 包文件夹（NuGet packages已经在packages.config中记录）
+packages/
+
+# 编译输出
+*.dll
+*.exe
+*.pdb
+[Dd]ebug/
+[Rr]elease/
+
+# Visual Studio临时文件
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+[Bb]in
+[Oo]bj
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+_ReSharper*/
+*.[Rr]e[Ss]harper
+Thumbs.db
+ehthumbs.db
+*.csproj.user
+*.vbproj.user
+*.suo
+*.cache
+*.docstates
+[Ee]xpress/
+
+# NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+
+# Installshield output folder 
+[Ee]xpress
+
+# DocProject is a documentation generator add-in
+DocProject/buildhelp/
+DocProject/Help/*.HxT
+DocProject/Help/*.HxC
+DocProject/Help/*.hhc
+DocProject/Help/*.hhk
+DocProject/Help/*.hhp
+DocProject/Help/Html2
+DocProject/Help/html
+
+# Click-Once directory
+publish
+
+# Others
+[Bb]in
+[Oo]bj
+sql
+TestResults
+[Tt]est[Rr]esult*
+*.Cache
+ClientBin
+[Ss]tyle[Cc]op.*
+~$*
+*.dbmdl
+Generated_Code #added for RIA/Silverlight projects
+
+# 数据库文件
+*.mdf
+*.ldf
+*.sdf
+
+# 临时文件
+*~
+*.swp
+*.DS_Store
+
+# Node.js (如果将来使用)
+node_modules/
+
+# IDE文件
+.vscode/
+.idea/
+
+# 日志文件
+*.log
+
+# 备份文件
+*.bak
+*.backup
+
+# 发布配置文件（包含敏感信息）
+*.pubxml
+*.pubxml.user
