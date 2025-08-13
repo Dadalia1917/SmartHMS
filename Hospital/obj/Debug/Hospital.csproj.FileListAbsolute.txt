@@ -588,3 +588,7 @@ D:\U盘备份\竞赛&项目\项目\智慧医疗\悬壶济世—智慧医疗管�
 D:\U盘备份\竞赛&项目\项目\智慧医疗\悬壶济世—智慧医疗管理系统\Hospital\Hospital\obj\Debug\Hospital.csproj.Up2Date
 D:\U盘备份\竞赛&项目\项目\智慧医疗\悬壶济世—智慧医疗管理系统\Hospital\Hospital\obj\Debug\Hospital.dll
 D:\U盘备份\竞赛&项目\项目\智慧医疗\悬壶济世—智慧医疗管理系统\Hospital\Hospital\obj\Debug\Hospital.pdb
+G:\U盘备份\竞赛与项目\项目\智慧医疗\悬壶济世—智慧医疗管理系统\Hospital\Hospital\obj\Debug\Hospital.csproj.AssemblyReference.cache
+G:\U盘备份\竞赛与项目\项目\智慧医疗\悬壶济世—智慧医疗管理系统\Hospital\Hospital\obj\Debug\Hospital.csproj.CoreCompileInputs.cache
+G:\U盘备份\竞赛与项目\项目\智慧医疗\悬壶济世—智慧医疗管理系统\Hospital\Hospital\obj\Debug\Hospital.dll
+G:\U盘备份\竞赛与项目\项目\智慧医疗\悬壶济世—智慧医疗管理系统\Hospital\Hospital\obj\Debug\Hospital.pdb

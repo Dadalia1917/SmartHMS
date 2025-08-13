@@ -162,13 +162,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ChuController.cs" />
     <Compile Include="Controllers\DCController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JiaoController.cs" />
     <Compile Include="Controllers\OPCController.cs" />
     <Compile Include="Controllers\PharmacyController.cs" />
+    <Compile Include="Controllers\SystemConstants.cs" />
     <Compile Include="Controllers\ZhuController.cs" />
+    <Compile Include="HospitalService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

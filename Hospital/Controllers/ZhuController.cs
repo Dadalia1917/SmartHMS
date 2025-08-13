@@ -89,7 +89,7 @@ namespace Hospital.Controllers
         /// <param name="list"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult submit(List<test> list)
+        public ActionResult submit(List<test1> list)
         {
             List<Morder> moList = new List<Morder>();
             foreach (var item in list)

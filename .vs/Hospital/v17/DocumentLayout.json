@@ -1,12 +1,23 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\U\u76D8\u5907\u4EFD\\\u7ADE\u8D5B\u0026\u9879\u76EE\\\u9879\u76EE\\\u667A\u6167\u533B\u7597\\\u60AC\u58F6\u6D4E\u4E16\u2014\u667A\u6167\u533B\u7597\u7BA1\u7406\u7CFB\u7EDF\\Hospital\\",
+  "WorkspaceRootPath": "G:\\U\u76D8\u5907\u4EFD\\\u7ADE\u8D5B\u4E0E\u9879\u76EE\\\u9879\u76EE\\\u667A\u6167\u533B\u7597\\\u60AC\u58F6\u6D4E\u4E16\u2014\u667A\u6167\u533B\u7597\u7BA1\u7406\u7CFB\u7EDF\\Hospital\\",
   "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

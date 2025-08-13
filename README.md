@@ -29,24 +29,21 @@ SmartHMS是一个功能完整的智慧医疗管理系统，为医院的日常运
 
 ## 技术架构
 
-### 🔧 核心技术栈
-- **主要语言**: C# (后端业务逻辑)
+### 后端技术
 - **框架**: ASP.NET MVC 5.2.7
 - **数据库**: Entity Framework 6.2.0 + SQL Server
-- **开发平台**: .NET Framework 4.7.2
+- **开发语言**: C# .NET Framework
 
-### 🎨 前端技术
-- **UI框架**: Bootstrap 3.4.1 (响应式设计)
-- **JavaScript库**: jQuery 3.4.1 (交互增强)
-- **模板引擎**: Razor View Engine
-- **图标支持**: Font Awesome
+### 前端技术
+- **UI框架**: Bootstrap 3.4.1
+- **JavaScript库**: jQuery 3.4.1
+- **图标字体**: Font Awesome
+- **响应式设计**: 支持多设备适配
 
-### 📦 开发工具与依赖
+### 开发工具与依赖
 - **数据处理**: NPOI 2.5.5 (Excel操作支持)
-- **JSON序列化**: Newtonsoft.Json 12.0.2
-- **资源优化**: ASP.NET Web Optimization 1.1.3
-
-> **语言组成说明**: 本项目是以C#为核心的后端驱动系统，JavaScript主要用于前端交互增强。项目使用了`.gitattributes`文件来确保GitHub正确识别主要开发语言为C#。
+- **JSON处理**: Newtonsoft.Json 12.0.2
+- **代码优化**: Web Optimization 1.1.3
 
 ## 系统特色
 
@@ -91,10 +88,11 @@ SmartHMS/
 ## 快速开始
 
 ### 环境要求
-- Visual Studio 2019或更高版本
-- .NET Framework 4.7.2或更高版本
-- SQL Server 2016或更高版本
-- IIS 10.0或更高版本
+- **开发环境**: Visual Studio 2019或更高版本
+- **运行时**: .NET Framework 4.7.2或更高版本
+- **数据库**: SQL Server 2016或更高版本
+- **Web服务器**: IIS 10.0或更高版本
+- **数据库管理工具** (可选): Navicat Premium 或 SQL Server Management Studio
 
 ### 安装步骤
 
@@ -104,23 +102,82 @@ SmartHMS/
    cd SmartHMS
    ```
 
-2. **数据库配置**
-   - 在SQL Server中创建数据库
-   - 导入 `App_Data/HospitalDB.bak` 备份文件
-   - 更新 `Web.config` 中的连接字符串
+2. **数据库配置** (二选一)
 
-3. **依赖包还原**
+   **方法一：使用SQL脚本** ⭐ 推荐
+   - 安装并启动SQL Server
+   - 打开Navicat Premium，连接到SQL Server
+   - 创建新数据库 `HospitalDB`
+   - 运行项目根目录下的 `HospitalDB.sql` 脚本（包含完整的表结构和测试数据）
+   - 等待脚本执行完成，数据库表和初始数据将自动创建
+
+   **方法二：使用备份文件还原**
+   - 打开SQL Server Management Studio
+   - 右键"数据库" → "还原数据库"
+   - 选择 `Hospital/App_Data/HospitalDB.bak` 备份文件
+   - 按提示完成数据库还原
+   - ⚠️ **注意**: 如果使用.bak文件，还原后需手动执行以下SQL更新密码：
+     ```sql
+     UPDATE Login SET Password = 'admin123' WHERE Account = 'admin'
+     ```
+
+3. **连接字符串配置**
+   - 打开 `Hospital/Web.config` 文件
+   - 找到 `<connectionStrings>` 节点
+   - 修改连接字符串以匹配你的SQL Server配置：
+   ```xml
+   <connectionStrings>
+     <add name="HospitalDBEntities" 
+          connectionString="Data Source=your_server_name;Initial Catalog=HospitalDB;Integrated Security=True" 
+          providerName="System.Data.SqlClient" />
+   </connectionStrings>
+   ```
+
+4. **依赖包还原**
    ```bash
    nuget restore
    ```
 
-4. **编译运行**
+5. **编译运行**
    - 在Visual Studio中打开 `Hospital.sln`
+   - 确保目标框架为 `.NET Framework 4.7.2`
    - 按F5运行项目
+   - 浏览器将自动打开登录页面
 
-### 默认登录信息
-- 管理员账号：admin
-- 默认密码：123456
+### 🔑 默认登录信息
+- **管理员账号**: `admin`
+- **登录密码**: `admin123`
+
+> **💡 提示**: 首次登录后建议立即修改默认密码以确保系统安全
+
+### 🔧 数据库配置故障排除
+
+**问题1: 数据库连接失败**
+```
+解决方案：
+1. 确认SQL Server服务已启动
+2. 检查连接字符串中的服务器名称是否正确
+3. 确认数据库名称为 HospitalDB
+4. 检查Windows防火墙是否阻止了连接
+```
+
+**问题2: Navicat连接SQL Server失败**
+```
+解决方案：
+1. 确保SQL Server配置为允许远程连接
+2. 启用SQL Server身份验证模式
+3. 检查TCP/IP协议是否启用
+4. 确认SQL Server端口（默认1433）是否开放
+```
+
+**问题3: 登录失败**
+```
+解决方案：
+1. 确认数据库中存在Login表和相关数据
+2. 检查账号密码是否为：admin / admin123
+3. 确认医生状态不是"已离职"
+4. 清除浏览器缓存重试
+```
 
 ## 功能截图
 
