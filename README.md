@@ -62,6 +62,189 @@ SmartHMS是一个功能完整的智慧医疗管理系统，为医院的日常运
 - 直观的操作流程
 - 友好的错误提示
 
+## 系统设计图
+
+### 类图
+
+下面的类图展示了系统中的主要实体及其关系：
+
+```mermaid
+classDiagram
+    class Doctor {
+        +int YsID
+        +string Yname
+        +string Yphone
+        +string Yzhuzhi
+        +string Yjianjie
+        +string Yzhicheng
+        +string Ysex
+        +string Yold
+        +string Yphoto
+        +int? Bid
+        +string Ystate
+    }
+    
+    class Bumen {
+        +int Bid
+        +string Bname
+        +string Bmiaoshu
+    }
+    
+    class Login {
+        +int ID
+        +string Account
+        +string Password
+        +int YsID
+        +string Zhiwu
+    }
+    
+    class Guahao {
+        +int Gid
+        +string Gname
+        +string GPhone
+        +string Gshenfenzheng
+        +string GSex
+        +string Gbingli
+        +int? YsID
+        +string Gstate
+        +int Pid
+        +DateTime Gtime
+    }
+    
+    class Zhuyuan {
+        +int Zid
+        +string Zname
+        +int? Gid
+        +string Ztime
+        +string state
+    }
+    
+    class Paiban {
+        +int Pid
+        +int? YsID
+        +string PDate
+        +string Pstate
+    }
+    
+    class Medicine {
+        +int Mid
+        +string Mname
+        +decimal? Mprice
+        +int? Mcount
+        +DateTime Mguoqi
+    }
+    
+    class Morder {
+        +int Mid
+        +int? Gid
+        +string Mstate
+        +int? MyaoID
+        +string zhifu
+    }
+    
+    Bumen "1" --o "*" Doctor: 所属部门
+    Doctor "1" --o "*" Login: 拥有账号
+    Doctor "1" --o "*" Paiban: 排班信息
+    Paiban "1" --o "*" Guahao: 关联挂号
+    Guahao "1" --o "*" Zhuyuan: 住院信息
+    Guahao "1" --o "*" Morder: 药品订单
+```
+
+### 功能结构图
+
+下面的功能结构图展示了系统的主要功能模块：
+
+```mermaid
+flowchart TB
+    subgraph 智慧医疗管理系统
+        A[首页]
+        B[医生科室管理]
+        C[挂号就诊]
+        D[住院管理]
+        E[药房管理]
+        F[排班管理] 
+        G[缴费管理]
+    end
+    
+    A --> H[用户登录]
+    A --> I[用户管理]
+    A --> J[系统统计]
+    
+    B --> B1[添加科室]
+    B --> B2[修改科室]
+    B --> B3[添加医生]
+    B --> B4[修改医生信息]
+    
+    C --> C1[患者挂号]
+    C --> C2[挂号查询]
+    C --> C3[就诊管理]
+    
+    D --> D1[入院登记]
+    D --> D2[住院管理]
+    D --> D3[出院结算]
+    
+    E --> E1[药品入库]
+    E --> E2[药品查询]
+    E --> E3[药品订单]
+    
+    F --> F1[排班设置]
+    F --> F2[排班查询]
+    
+    G --> G1[订单支付]
+    G --> G2[支付记录]
+```
+
+### 系统架构图
+
+下面的系统架构图展示了系统的各个层次及其关系：
+
+```mermaid
+flowchart TB
+    subgraph 前端层
+        UI[用户界面]
+        JS[JavaScript]
+        CSS[样式表]
+    end
+    
+    subgraph 控制器层
+        HC[HomeController]
+        DCC[DCController]
+        OPCC[OPCController]
+        ZC[ZhuController]
+        PC[PharmacyController]
+        CC[ChuController]
+        JC[JiaoController]
+    end
+    
+    subgraph 服务层
+        HS[HospitalService]
+    end
+    
+    subgraph 模型层
+        Doctor[医生]
+        Bumen[科室]
+        Guahao[挂号]
+        Zhuyuan[住院]
+        Medicine[药品]
+        Paiban[排班]
+        Morder[订单]
+    end
+    
+    subgraph 数据访问层
+        EF[Entity Framework]
+    end
+    
+    subgraph 数据库
+        DB[SQL Server]
+    end
+    
+    UI --> HC & DCC & OPCC & ZC & PC & CC & JC
+    HC & DCC & OPCC & ZC & PC & CC & JC --> HS
+    HS --> Doctor & Bumen & Guahao & Zhuyuan & Medicine & Paiban & Morder
+    Doctor & Bumen & Guahao & Zhuyuan & Medicine & Paiban & Morder --> EF
+    EF --> DB
+```
+
 ## 项目结构
 
 ```
